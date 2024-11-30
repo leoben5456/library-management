@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: eureka-server
+  cloud:
+    config:
+      uri: http://localhost:8888
+      name: eureka-server
+      label: master
+
+spring.config.import: optional:configserver:http://localhost:8888
+
+logging:
+  level:
+    org.springframework.cloud.config.client: DEBUG
+    org.springframework.boot.context.config: DEBUG
+
