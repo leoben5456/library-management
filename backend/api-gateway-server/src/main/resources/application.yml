@@ -11,6 +11,14 @@ spring:
     gateway:
       routes:
         # Define routes for your services
+       - id: admin-service
+         uri: lb://admin-service
+         predicates:
+            - Path=/admin/**
+       - id: user-service
+         uri: lb://user-service
+         predicates:
+            - Path=/user/**
 
 
 
