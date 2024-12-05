@@ -1,8 +1,8 @@
-package com.example.userservice.controller;
+package com.example.livreservice.Controller;
 
-
-import com.example.userservice.Model.User;
-import com.example.userservice.Service.UserService;
+import com.example.livreservice.Model.Category;
+import com.example.livreservice.Model.Livre;
+import com.example.livreservice.Service.CategoryService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,27 +12,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class UserController {
+public class CategoryController {
+    private final CategoryService categoryService;
 
-    private  final UserService userService;
-
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
-
-    @GetMapping("/welcome")
-    public String welcome() {
-        return "Welcome to User Service";
+    public CategoryController(CategoryService categoryService) {
+        this.categoryService = categoryService;
     }
 
 
-
-    @PostMapping("/user/inscription")
-    public ResponseEntity<String> inscription(@Valid @RequestBody User user) {
+    @PostMapping("/category/creating")
+    public ResponseEntity<String> creating(@Valid @RequestBody Category category) {
         try {
-            System.out.println("User before saving: " + user);
-            userService.saveUser(user);
-            return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully!");
+            System.out.println("category before saving: " + category);
+            categoryService.saveCategory(category);
+            return ResponseEntity.status(HttpStatus.CREATED).body("category registered successfully!");
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid input: " + e.getMessage());
@@ -41,5 +34,10 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error during registration: " + e.getMessage());
         }
     }
+
+
+
+
+
 
 }
