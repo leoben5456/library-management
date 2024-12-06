@@ -1,12 +1,11 @@
 package com.example.livreservice.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @Entity
@@ -18,4 +17,16 @@ public class Category {
     private int id;
     private String name;
     private int nbLivres;
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Livre> livres;
+
+    public Category(String name) {
+        this.name = name;
+        this.nbLivres = 0; // Initialize with 0
+    }
+    // Increment the number of books in this category
+    public void incrementNbLivres() {
+        this.nbLivres++;
+    }
+
 }

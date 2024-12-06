@@ -1,5 +1,6 @@
 package com.example.livreservice.Service;
 
+import com.example.livreservice.Model.Category;
 import com.example.livreservice.Model.Livre;
 import org.hibernate.validator.constraints.CodePointLength;
 

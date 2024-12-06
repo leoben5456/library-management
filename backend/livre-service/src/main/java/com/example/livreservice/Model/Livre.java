@@ -26,4 +26,7 @@ public class Livre {
     @JoinColumn(name = "category_id",nullable = false)
     private Category category;
 
+    private String categoryName;
+
+
 }
