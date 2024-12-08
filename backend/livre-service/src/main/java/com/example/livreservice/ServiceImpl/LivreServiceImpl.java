@@ -53,6 +53,7 @@ public class LivreServiceImpl implements LivreService {
         livre.setLangue(livre.getLangue());
         livre.setNbPages(livre.getNbPages());
         livre.setPrix(livre.getPrix());
+        livre.setStatus(livre.getStatus());
 
         // Save the book
         livreRepository.save(livre);

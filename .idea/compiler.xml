@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="config-server" />
+        <module name="reservation-service" />
         <module name="user-service" />
         <module name="eureka-server" />
         <module name="api-gateway-server" />
@@ -15,14 +16,19 @@
         <module name="livre-service" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Reservation-service" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Reservation-service" options="-parameters" />
       <module name="admin-service" options="-parameters" />
       <module name="api-gateway-server" options="-parameters" />
       <module name="config-server" options="-parameters" />
       <module name="eureka-server" options="-parameters" />
       <module name="livre-service" options="-parameters" />
+      <module name="reservation-service" options="-parameters" />
       <module name="user-service" options="-parameters" />
     </option>
   </component>

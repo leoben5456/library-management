@@ -29,6 +29,8 @@ public class Livre {
     private Category category;
     @Transient
     private String categoryName;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
 
 }
