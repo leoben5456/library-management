@@ -32,5 +32,4 @@ public class Livre {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-
 }

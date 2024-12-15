@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -14,6 +15,7 @@ import java.util.Map;
 @RestController
 public class LivreController {
     private final LivreService livreService;
+
 
     public LivreController(LivreService livreService) {
         this.livreService = livreService;

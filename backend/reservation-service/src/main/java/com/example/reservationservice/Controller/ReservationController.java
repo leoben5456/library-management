@@ -1,19 +1,23 @@
 package com.example.reservationservice.Controller;
 
+import com.example.livreservice.Model.Livre;
 import com.example.reservationservice.Model.Reservation;
 import com.example.reservationservice.Service.ReservationService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 @RestController
 
 public class ReservationController {
     private final ReservationService reservationService;
 
+
     public ReservationController(ReservationService reservationService) {
         this.reservationService = reservationService;
+
     }
     @PostMapping("/reservation/creation")
     public ResponseEntity<String> createReservation(@Valid @RequestBody Reservation reservation) {
@@ -29,6 +33,11 @@ public class ReservationController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error during creation: " + e.getMessage());
         }
     }
+    @GetMapping("/test/{id}")
+    public Livre test(@PathVariable int id) {
+        return reservationService.getLivreById(id);
+    }
+
     @GetMapping("/reservation/{id}")
     public ResponseEntity<?> getReservation(@PathVariable int id) {
         try {

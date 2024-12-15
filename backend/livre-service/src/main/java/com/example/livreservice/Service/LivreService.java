@@ -1,5 +1,6 @@
 package com.example.livreservice.Service;
 
+import com.example.livreservice.DTO.LivreDTO;
 import com.example.livreservice.Model.Category;
 import com.example.livreservice.Model.Livre;
 import org.hibernate.validator.constraints.CodePointLength;
@@ -14,5 +15,6 @@ public interface LivreService {
     void updateLivre(Livre livre);
     Livre getLivre(int id);
     List<Livre> getAllLivres();
+
 
 }

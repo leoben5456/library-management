@@ -1,10 +1,14 @@
 package com.example.reservationservice.ServiceIMPL;
 
+import com.example.livreservice.Model.Livre;
 import com.example.reservationservice.Model.Reservation;
 import com.example.reservationservice.Repository.ReservationRepository;
 import com.example.reservationservice.Service.ReservationService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -12,9 +16,11 @@ import java.util.List;
 public class ReservationServiceImpl implements ReservationService {
 
     private final ReservationRepository reservationRepository;
-    public ReservationServiceImpl(ReservationRepository reservationRepository) {
-        this.reservationRepository = reservationRepository;
+    private final WebClient.Builder webClientBuilder ;
 
+    public ReservationServiceImpl(ReservationRepository reservationRepository, WebClient.Builder webClientBuilder) {
+        this.reservationRepository = reservationRepository;
+        this.webClientBuilder = webClientBuilder;
     }
 
     @Override
@@ -26,6 +32,7 @@ public class ReservationServiceImpl implements ReservationService {
         reservation.setEmailuser(reservation.getEmailuser());
         reservationRepository.save(reservation);
     }
+
     public Reservation getReservation(int id) {
         return reservationRepository.findById(id).orElse(null);
     }
@@ -48,6 +55,15 @@ public class ReservationServiceImpl implements ReservationService {
         reservationRepository.save(existingReservation);
     }
 
+    public Livre getLivreById(int id) {
+        WebClient webClient = webClientBuilder.build();
+        Mono<Livre> livreMono = webClient.get()
+                .uri("http://localhost:8080/livre-service/livre/" + id)
+                .retrieve()
+                .bodyToMono(Livre.class);
+
+        return livreMono.block(); // Blocking for simplicity, consider using reactive approach
+    }
 
 
 
