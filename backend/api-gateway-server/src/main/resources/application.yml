@@ -7,22 +7,39 @@ spring:
       uri: http://localhost:8888
       fail-fast: true
 
-
     gateway:
       routes:
-        # Define routes for your services
-       - id: admin-service
-         uri: lb://admin-service
-         predicates:
-            - Path=/admin/**
-       - id: user-service
-         uri: lb://user-service
-         predicates:
-            - Path=/user/**
+        - id: admin-service
+          uri: lb://admin-service
+          predicates:
+            - Path=/admin-service/**
 
 
 
-spring.config.import: optional:configserver:http://localhost:8888
+
+
+
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/user-service/**
+
+
+
+
+
+
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/auth-service/**
+          filters:
+            - StripPrefix=1
+
+
+  config:
+    import: optional:configserver:http://localhost:8888
+
 eureka:
   client:
     service-url:
