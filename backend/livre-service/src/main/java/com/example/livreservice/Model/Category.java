@@ -1,5 +1,6 @@
 package com.example.livreservice.Model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,7 +18,9 @@ public class Category {
     private int id;
     private String name;
     private int nbLivres;
+
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Livre> livres;
 
     public Category(String name) {

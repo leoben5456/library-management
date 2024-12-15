@@ -1,5 +1,6 @@
 package com.example.livreservice.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,10 +24,12 @@ public class Livre {
     public int nbPages;
     public double prix;
     @ManyToOne
-    @JoinColumn(name = "category_id",nullable = false)
+    @JoinColumn(name = "category_id", nullable = false)
+    @JsonBackReference
     private Category category;
-
+    @Transient
     private String categoryName;
-
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
 }
