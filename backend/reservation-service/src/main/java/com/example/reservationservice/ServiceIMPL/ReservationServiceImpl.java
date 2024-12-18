@@ -5,6 +5,7 @@ import com.example.reservationservice.Model.Reservation;
 import com.example.reservationservice.Repository.ReservationRepository;
 import com.example.reservationservice.Service.ReservationService;
 import jakarta.transaction.Transactional;
+import jakarta.ws.rs.core.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -55,16 +56,18 @@ public class ReservationServiceImpl implements ReservationService {
         reservationRepository.save(existingReservation);
     }
 
-    public Livre getLivreById(int id) {
+
+    @Override
+    public Livre getLivreById(int id, String token) {
         WebClient webClient = webClientBuilder.build();
-        Mono<Livre> livreMono = webClient.get()
+
+        return webClient.get()
                 .uri("http://localhost:8080/livre-service/livre/" + id)
+                .headers(headers -> headers.set(HttpHeaders.AUTHORIZATION, token)) // Forward the token
                 .retrieve()
-                .bodyToMono(Livre.class);
-
-        return livreMono.block(); // Blocking for simplicity, consider using reactive approach
+                .bodyToMono(Livre.class)
+                .block(); // Blocking for simplicity, consider reactive approach
     }
-
 
 
 }

@@ -1,19 +1,21 @@
 package com.example.userservice.controller;
 
 
+import com.example.livreservice.Model.Category;
+import com.example.livreservice.Model.Livre;
 import com.example.userservice.Model.User;
 import com.example.userservice.Repository.UserRepository;
 import com.example.userservice.Service.UserService;
 import com.example.userservice.dto.UserDTO;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.ErrorResponse;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class UserController {
@@ -31,6 +33,45 @@ public class UserController {
     @GetMapping("/welcome")
     public String welcome() {
         return "Welcome to User Service";
+    }
+
+    @GetMapping("/req/{id}")
+    public ResponseEntity<Livre> test(@PathVariable int id, @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+        Livre livre = userService.getLivreById(id, token);
+        return ResponseEntity.ok(livre);
+    }
+    @GetMapping("/reqlivres")
+    public ResponseEntity<List<Livre>> getAllLivres(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+        List<Livre> livres = userService.getAllLivres(token);
+        return ResponseEntity.ok(livres);
+    }
+    @GetMapping("/livre/titre/{titre}")
+    public ResponseEntity<List<Livre>> getLivresByName(@RequestParam String titre, @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+        List<Livre> livres = userService.getLivresByName(titre, token);
+        return ResponseEntity.ok(livres);
+    }
+    @GetMapping("/livre/auteur/{auteur}")
+    public ResponseEntity<List<Livre>> getLivresByAuteur(@RequestParam String auteur, @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+        List<Livre> livres = userService.getLivresByAuteur(auteur, token);
+        return ResponseEntity.ok(livres);
+    }
+
+    @GetMapping("/livres/genre/{genre}")
+    public ResponseEntity<List<Livre>> getLivresByGenre(@RequestParam String genre, @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+        List<Livre> livres = userService.getLivresByGenre(genre, token);
+        return ResponseEntity.ok(livres);
+    }
+
+    @GetMapping("/livres/langue/{langue}")
+    public ResponseEntity<List<Livre>> getLivresByLangue(@RequestParam String langue, @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+        List<Livre> livres = userService.getLivresByLangue(langue, token);
+        return ResponseEntity.ok(livres);
+    }
+
+    @GetMapping("/livres/category/{category}")
+    public ResponseEntity<List<Livre>> getLivresByCategory(@RequestParam Category category, @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+        List<Livre> livres = userService.getLivresByCategory(category, token);
+        return ResponseEntity.ok(livres);
     }
 
 

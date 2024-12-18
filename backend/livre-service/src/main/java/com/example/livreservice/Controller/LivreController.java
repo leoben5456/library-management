@@ -1,5 +1,6 @@
 package com.example.livreservice.Controller;
 
+import com.example.livreservice.Model.Category;
 import com.example.livreservice.Model.Livre;
 import com.example.livreservice.Service.LivreService;
 import jakarta.validation.Valid;
@@ -10,7 +11,9 @@ import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 public class LivreController {
@@ -143,7 +146,36 @@ public class LivreController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
 
-        }
     }
+    @GetMapping("/livre/titre")
+    public ResponseEntity<Livre> getLivreByTitre(@RequestParam String titre) {
+        Livre livre = livreService.getLivreByTitre(titre);
+        return ResponseEntity.ok(livre);
+    }
+    @GetMapping("/livres/auteur")
+    public ResponseEntity<List<Livre>> getLivresByAuteur(@RequestParam String auteur) {
+        List<Livre> livres = livreService.getLivresByAuteur(auteur);
+        return ResponseEntity.ok(livres);
+    }
+
+
+    @GetMapping("/livres/genre")
+    public ResponseEntity<List<Livre>> getLivresByGenre(@RequestParam String genre) {
+        List<Livre> livres = livreService.getLivresByGenre(genre);
+        return ResponseEntity.ok(livres);
+    }
+
+    @GetMapping("/livres/langue")
+    public ResponseEntity<List<Livre>> getLivresByLangue(@RequestParam String langue) {
+        List<Livre> livres = livreService.getLivresByLangue(langue);
+        return ResponseEntity.ok(livres);
+    }
+
+    @GetMapping("/livres/category")
+    public ResponseEntity<List<Livre>> getLivresByCategory(@RequestParam Category category) {
+        List<Livre> livres = livreService.getLivresByCategory(category);
+        return ResponseEntity.ok(livres);
+    }
+}
 
 

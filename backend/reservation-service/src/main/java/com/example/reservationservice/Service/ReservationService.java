@@ -14,7 +14,7 @@ public interface ReservationService {
     List<Reservation> getAllReservations();
     void deleteReservation(int id);
     void updateReservationById(int id, Reservation reservation);
-    Livre getLivreById(int id);
+    Livre getLivreById(int id, String token);
 
 
 

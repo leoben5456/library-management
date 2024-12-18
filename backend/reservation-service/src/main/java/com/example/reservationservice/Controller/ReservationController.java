@@ -7,7 +7,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.http.HttpHeaders;
 
 @RestController
 
@@ -34,8 +34,9 @@ public class ReservationController {
         }
     }
     @GetMapping("/test/{id}")
-    public Livre test(@PathVariable int id) {
-        return reservationService.getLivreById(id);
+    public ResponseEntity<Livre> test(@PathVariable int id, @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+        Livre livre = reservationService.getLivreById(id, token);
+        return ResponseEntity.ok(livre);
     }
 
     @GetMapping("/reservation/{id}")

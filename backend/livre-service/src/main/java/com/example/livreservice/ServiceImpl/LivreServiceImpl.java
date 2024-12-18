@@ -1,20 +1,15 @@
 package com.example.livreservice.ServiceImpl;
 
-import com.example.livreservice.DTO.LivreDTO;
 import com.example.livreservice.Model.Category;
 import com.example.livreservice.Model.Livre;
-import com.example.livreservice.Model.Status;
 import com.example.livreservice.Repository.CategoryRepository;
 import com.example.livreservice.Repository.LivreRepository;
 import com.example.livreservice.Service.LivreService;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class LivreServiceImpl implements LivreService {
@@ -88,7 +83,30 @@ public class LivreServiceImpl implements LivreService {
         return livreRepository.findAll();
     }
 
+    @Override
+    public Livre getLivreByTitre(String titre) {
+        return livreRepository.findByTitre(titre).orElse(null);
+    }
 
+    @Override
+    public List<Livre> getLivresByAuteur(String auteur) {
+        return livreRepository.findByAuteur(auteur);
+    }
+
+    @Override
+    public List<Livre> getLivresByGenre(String genre) {
+        return livreRepository.findByGenre(genre);
+    }
+
+    @Override
+    public List<Livre> getLivresByLangue(String langue) {
+        return livreRepository.findByLangue(langue);
+    }
+
+    @Override
+    public List<Livre> getLivresByCategory(Category category) {
+        return livreRepository.findByCategory(category);
+    }
 
 
 }
