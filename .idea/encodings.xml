@@ -9,6 +9,7 @@
     <file url="file://$PROJECT_DIR$/backend/eureka-server/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/backend/livre-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/backend/reservation-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/backend/statistics-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/backend/user-service/src/main/java" charset="UTF-8" />
   </component>
 </project>
