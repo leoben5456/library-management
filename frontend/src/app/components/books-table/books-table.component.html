@@ -1,0 +1,71 @@
+<div class="table-container">
+  <div class="header">
+    <button (click)="show()" class="btn-add" mat-flat-button>
+      <i class="fa-solid fa-plus"></i> New
+    </button>
+    <button  (click)="deleteSelected()" class="btn-delete" mat-flat-button>
+      <i class="fa-regular fa-trash-can"></i> Delete
+    </button>
+  </div>
+
+  <div class="card">
+    <p-table
+      #dt
+      [value]="books"
+      dataKey="id"
+      [rows]="5"
+      [rowsPerPageOptions]="[10, 25, 50]"
+      [loading]="loading"
+      [paginator]="true"
+      [globalFilterFields]="['name', 'category', 'author']"
+      selectionMode="multiple"
+      [(selection)]="selectedBooks"
+    >
+      <!-- Caption (Manage Books and Search Bar) -->
+      <ng-template pTemplate="caption">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <strong>Manage Books</strong>
+          <p-iconField iconPosition="left">
+            <p-inputIcon>
+              <i class="pi pi-search"></i>
+            </p-inputIcon>
+            <input
+              pInputText
+              type="text"
+              (input)="onGlobalFilter($event, dt)"
+              placeholder="Search keyword"
+            />
+          </p-iconField>
+        </div>
+      </ng-template>
+
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width:5%">
+            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+          </th>
+          <th style="width:25%">Name</th>
+          <th style="width:25%">Category</th>
+          <th style="width:25%">Author</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-book>
+        <tr>
+          <td>
+            <p-tableCheckbox [value]="book"></p-tableCheckbox>
+          </td>
+          <td>{{ book.name }}</td>
+          <td>{{ book.category }}</td>
+          <td>{{ book.author }}</td>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="4">No books found.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

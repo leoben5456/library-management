@@ -8,8 +8,26 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { DashboardComponent } from '../../components/dashboard/dashboard.component';
+import { SharedModule } from '../../modules/shared/shared.module';
+import { BooksTableComponent } from '../../components/books-table/books-table.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { TableModule } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { InputTextModule } from 'primeng/inputtext';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { DropdownModule } from 'primeng/dropdown';
+import { HttpClientModule } from '@angular/common/http';
+import { ButtonModule } from 'primeng/button';
+import { FormsModule } from '@angular/forms';
+
 @NgModule({
-  declarations: [AdminLayoutComponent,DashboardComponent],
+  declarations: [
+    AdminLayoutComponent,
+    DashboardComponent,
+    BooksTableComponent
+  ],
   imports: [
     CommonModule,
     AdminLayoutRoutingModule,
@@ -17,7 +35,20 @@ import { DashboardComponent } from '../../components/dashboard/dashboard.compone
     MatCardModule,
     MatMenuModule,
     MatIconModule,
-    MatButtonModule
-  ]
+    MatButtonModule,
+    SharedModule,
+    MatDialogModule,
+    TableModule,
+    TagModule,
+    IconFieldModule,
+    InputIconModule,
+    InputTextModule,
+    MultiSelectModule,
+    DropdownModule,
+    HttpClientModule,
+    ButtonModule,
+    FormsModule
+  ],
+  providers: [],
 })
 export class AdminLayoutModule { }

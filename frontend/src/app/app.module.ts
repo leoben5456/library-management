@@ -13,11 +13,13 @@ import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { SharedModule } from './modules/shared/shared.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+   
   ],
   imports: [
     BrowserModule,
@@ -32,6 +34,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatMenuModule,
     MatIconModule,
     MatButtonModule,
+    SharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

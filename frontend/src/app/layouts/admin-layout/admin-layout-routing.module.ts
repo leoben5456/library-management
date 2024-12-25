@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminLayoutComponent } from './admin-layout.component';
 import { DashboardComponent } from '../../components/dashboard/dashboard.component';
+import { BooksTableComponent } from '../../components/books-table/books-table.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,10 @@ const routes: Routes = [
         path: '',
         component: DashboardComponent, 
       },
+      {
+        path:'Manage/Books',
+        component:BooksTableComponent
+      }
     ],
   },
 ];
