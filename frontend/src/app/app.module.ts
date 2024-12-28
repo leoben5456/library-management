@@ -14,11 +14,15 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { SharedModule } from './modules/shared/shared.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+    
+    
+    
    
   ],
   imports: [
@@ -35,6 +39,7 @@ import { SharedModule } from './modules/shared/shared.module';
     MatIconModule,
     MatButtonModule,
     SharedModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

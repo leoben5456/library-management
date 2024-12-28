@@ -1,11 +1,13 @@
+<p-toast />
 <div class="table-container">
   <div class="header">
     <button (click)="show()" class="btn-add" mat-flat-button>
       <i class="fa-solid fa-plus"></i> New
     </button>
-    <button  (click)="deleteSelected()" class="btn-delete" mat-flat-button>
+    <button  (click)="deleteSelected($event)" class="btn-delete" mat-flat-button>
       <i class="fa-regular fa-trash-can"></i> Delete
     </button>
+
   </div>
 
   <div class="card">
@@ -47,18 +49,36 @@
           <th style="width:25%">Name</th>
           <th style="width:25%">Category</th>
           <th style="width:25%">Author</th>
+          <th style="width:25%">Action</th>
         </tr>
       </ng-template>
 
       <ng-template pTemplate="body" let-book>
-        <tr>
+        <tr style="cursor: pointer;">
           <td>
             <p-tableCheckbox [value]="book"></p-tableCheckbox>
           </td>
           <td>{{ book.name }}</td>
           <td>{{ book.category }}</td>
           <td>{{ book.author }}</td>
-        </tr>
+          <td>
+            <p-button
+            icon="pi pi-pencil"
+            [rounded]="true"
+            [outlined]="true"
+            severity="success"
+            styleClass="xsmall-button"
+          ></p-button>
+          <p-button
+            icon="pi pi-trash"
+            [rounded]="true"
+            [outlined]="true"
+            severity="danger"
+            styleClass="xsmall-button"
+          ></p-button>
+          
+          </td>
+       </tr>
       </ng-template>
 
       <ng-template pTemplate="emptymessage">

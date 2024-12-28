@@ -29,3 +29,17 @@
 .card{
     width:100%;
 }
+
+
+
+
+:host ::ng-deep 
+.xsmall-button.p-button-icon-only {
+  min-width: 1.5rem !important; 
+  width:35px !important;
+  height: 5vh !important;
+}
+:host ::ng-deep .xsmall-button{
+    margin-left: 0.5rem !important;
+}
+  

@@ -1,0 +1,62 @@
+
+
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+
+
+.header .title p{
+    font-size: 20px;
+    font-style: bold;
+    color: #333;
+}
+
+.close i{
+    font-size: 20px;
+    color: #8f8f8f;
+    cursor: pointer;
+}
+
+
+.content label,.form-row label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.content .name-field,
+.content .author-field,
+.content .description-field {
+    margin-bottom:10px;
+}
+
+.content input[pInputText],
+.content textarea[pInputTextarea] {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+::ng-deep .content input[pInputText]{
+    padding: 7px !important;
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+}
+
+.form-row .cover{
+   
+    margin-bottom: 10px;
+}
+
+
+.footer{
+    position: absolute;
+    bottom:10px;
+    right: 10px;
+}

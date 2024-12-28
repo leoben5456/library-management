@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { BookDialogComponent } from '../book-dialog/book-dialog.component';
 import { Book, BookService } from '../../services/book.service';
 import { Table } from 'primeng/table';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-books-table',
@@ -16,31 +17,24 @@ export class BooksTableComponent implements OnInit {
   statuses!: any[];
   loading: boolean = true;
   activityValues: number[] = [0, 100];
+  ref: DynamicDialogRef | undefined;
 
-  constructor(private bookService: BookService, public dialog: MatDialog) {}
+  constructor(private bookService: BookService,public dialogService: DialogService,private confirmationService: ConfirmationService, private messageService: MessageService) {}
 
   ngOnInit() {
     this.bookService.getBooks().then((books) => {
       this.books = books;
       this.loading = false;
 
-      // If there are date fields or other transformations, handle them here
     });
 
-    // Define categories if needed
     this.categories = [
       { label: 'Category 1', value: 'Category 1' },
       { label: 'Category 2', value: 'Category 2' },
       { label: 'Category 3', value: 'Category 3' },
-      // Add more categories as needed
     ];
 
-    // Define statuses based on Book.inventoryStatus
-    this.statuses = [
-      { label: 'In Stock', value: 'INSTOCK' },
-      { label: 'Low Stock', value: 'LOWSTOCK' },
-      { label: 'Out of Stock', value: 'OUTOFSTOCK' }
-    ];
+    
   }
 
   clear(table: Table) {
@@ -50,27 +44,41 @@ export class BooksTableComponent implements OnInit {
  
 
   show() {
-    const dialogRef = this.dialog.open(BookDialogComponent, {
-      height: '550px',
-      width: '450px',
-      // Pass data if necessary
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        // Handle the result, e.g., refresh the table
-        this.ngOnInit();
-      }
-    });
+    this.ref = this.dialogService.open(BookDialogComponent, { 
+      header: 'Book Details',
+      width: '32vw',
+      height: '85vh',
+    }
+    );
   }
 
-  deleteSelected() {
-    // Implement deletion logic
+  deleteSelected(event: Event) {  
+      this.confirmationService.confirm({
+          target: event.target as EventTarget,
+          message: 'Do you want to delete this record?',
+          header: 'Delete Confirmation',
+          icon: 'pi pi-info-circle',
+          acceptButtonStyleClass:"p-button-danger p-button-text",
+          rejectButtonStyleClass:"p-button-text p-button-text",
+          acceptIcon:"none",
+          rejectIcon:"none",
+
+          accept: () => {
+              this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' });
+          },
+          reject: () => {
+              this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
+          }
+      });
   }
   onGlobalFilter(event: Event, table: Table) {
     const value = (event.target as HTMLInputElement).value;
     table.filterGlobal(value, 'contains');
   }
-  
-  
+    
 }
+  
+
+
+
+  

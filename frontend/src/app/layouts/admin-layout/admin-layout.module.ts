@@ -21,12 +21,26 @@ import { DropdownModule } from 'primeng/dropdown';
 import { HttpClientModule } from '@angular/common/http';
 import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
-
+import { BookDialogComponent } from '../../components/book-dialog/book-dialog.component';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { PieChartComponent } from '../../components/pie-chart/pie-chart.component';
+import { RadarChartComponent } from '../../components/radar-chart/radar-chart.component';
+import { BarChartComponent } from '../../components/bar-chart/bar-chart.component';
+import { DialogService } from 'primeng/dynamicdialog';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { DialogModule } from '@angular/cdk/dialog';
+import { FileUploadModule } from 'primeng/fileupload';
 @NgModule({
   declarations: [
     AdminLayoutComponent,
     DashboardComponent,
-    BooksTableComponent
+    BooksTableComponent,
+    BookDialogComponent,
+    PieChartComponent,
+    RadarChartComponent,
+    BarChartComponent
   ],
   imports: [
     CommonModule,
@@ -47,8 +61,15 @@ import { FormsModule } from '@angular/forms';
     DropdownModule,
     HttpClientModule,
     ButtonModule,
-    FormsModule
+    FormsModule,
+    ToastModule,
+    NgApexchartsModule,
+    DialogModule,
+    DynamicDialogModule,
+    FileUploadModule
+   
+    
   ],
-  providers: [],
+  providers: [MessageService,DialogService,MessageService,ConfirmationService],
 })
 export class AdminLayoutModule { }
