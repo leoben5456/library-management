@@ -1,0 +1,43 @@
+.container{
+    height: 100vh;
+    position: relative;
+    
+}
+
+
+.container .content div {
+    padding-left: 10px;
+    
+    
+}
+
+.container .content .head-name {
+    padding-top: 50px;
+    
+}
+.container .content .head-name h2{
+    margin: 0;
+    padding-left: 10px;
+}
+
+.list div{
+    padding-top: 25px;
+    font-size: 16px;
+    color: rgb(156, 156, 156);
+    cursor: pointer;
+
+}
+
+div span{
+    padding-left: 10px;
+    
+}
+
+.logout{
+    position: absolute;
+    bottom: 20px;
+    left:5px;
+    font-size: 16px;
+    color: rgb(156, 156, 156);
+    cursor: pointer;
+}

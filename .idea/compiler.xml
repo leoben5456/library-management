@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="config-server" />
         <module name="auth-service" />
+        <module name="statistics-service" />
         <module name="user-service (1)" />
         <module name="reservation-service" />
         <module name="user-service" />
@@ -28,6 +29,7 @@
       <module name="eureka-server" options="-parameters" />
       <module name="livre-service" options="-parameters" />
       <module name="reservation-service" options="-parameters" />
+      <module name="statistics-service" options="-parameters" />
       <module name="user-service" options="-parameters" />
       <module name="user-service (1)" options="-parameters" />
     </option>

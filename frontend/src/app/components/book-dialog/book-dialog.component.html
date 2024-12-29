@@ -1,0 +1,57 @@
+<div class="container">
+   <div class="content">
+    <label for="name">Book Name</label>
+    <input class="name-field" type="text" pInputText [(ngModel)]="value" />
+
+    <label for="name">Author Name</label>
+    <input class="author-field" type="text" pInputText [(ngModel)]="value" />
+
+    <label for="name">Description</label>
+    <textarea rows="5"cols="30" pInputTextarea [(ngModel)]="value"></textarea>
+    
+    
+    <div class="form-row">
+      <div class="form-group">
+        <label for="language">Language</label>
+        <p-dropdown 
+          [options]="languages" 
+          [(ngModel)]="selectedLanguage" 
+          optionLabel="name" 
+          placeholder="Book language">
+        </p-dropdown>
+      </div>
+    
+      <div class="form-group">
+        <label for="quantity">Category</label>
+        <p-dropdown 
+          [options]="languages" 
+          [(ngModel)]="selectedLanguage" 
+          optionLabel="name" 
+          placeholder="Book Category">
+        </p-dropdown>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="cover">
+        <label for="cover">Book Conver</label>
+      <p-fileUpload 
+      mode="basic" 
+      chooseLabel="Choose" 
+      chooseIcon="pi pi-upload"
+      name="demo[]" 
+      url="https://www.primefaces.org/cdn/api/upload.php" 
+      accept="image/*" 
+      maxFileSize="1000000" 
+       />
+      </div>
+    </div>
+
+    <div class="footer">
+      <p-button (onClick)="close()" label="Cancel" icon="pi pi-times" [text]="true"  severity="info" size="small" />  
+      <p-button (onClick)="save()" label="Save" icon="pi pi-check" [text]="true"  severity="info" size="small" /> 
+
+    </div>
+    
+    
+</div>
