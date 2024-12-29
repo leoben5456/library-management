@@ -20,6 +20,7 @@ public class Reservation {
     private LocalDate dateExpiration;
     private String titreLiver;
     private String emailuser;
+    private int livreId;
 
 }
 

@@ -21,8 +21,10 @@ public class Livre {
     public String image;
     public String datePublication;
     public String langue;
-    public int nbPages;
-    public double prix;
+    public Integer nbPages;
+    public Double prix;
+    private Boolean isReserved;
+    public Integer quantite;
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     @JsonBackReference
@@ -31,5 +33,6 @@ public class Livre {
     private String categoryName;
     @Enumerated(EnumType.STRING)
     private Status status;
+
 
 }

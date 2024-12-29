@@ -1,6 +1,7 @@
 package com.example.reservationservice.Service;
 
 import com.example.livreservice.Model.Livre;
+import com.example.livreservice.Model.Status;
 import com.example.reservationservice.Model.Reservation;
 import org.springframework.stereotype.Service;
 
@@ -9,13 +10,13 @@ import java.util.List;
 
 @Service
 public interface ReservationService {
-    void saveReservation(Reservation reservation);
     Reservation getReservation(int id);
     List<Reservation> getAllReservations();
     void deleteReservation(int id);
     void updateReservationById(int id, Reservation reservation);
     Livre getLivreById(int id, String token);
-
-
-
+   // boolean isLivreAvailable(int livreId, String token);
+    void saveReservation(Reservation reservation, String token);
+     boolean checkLivreAvailability(int id, String token);
+    void updateLivreStatus(int livreId, Status status, String token);
 }

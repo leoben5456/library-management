@@ -2,13 +2,18 @@ package com.example.livreservice.Controller;
 
 import com.example.livreservice.Model.Category;
 import com.example.livreservice.Model.Livre;
+import com.example.livreservice.Model.Status;
+import com.example.livreservice.Repository.LivreRepository;
 import com.example.livreservice.Service.LivreService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -18,10 +23,15 @@ import java.util.Optional;
 @RestController
 public class LivreController {
     private final LivreService livreService;
+    @Autowired
+    private LivreRepository livreRepository;
 
 
-    public LivreController(LivreService livreService) {
+
+
+    public LivreController(LivreService livreService, LivreRepository livreRepository) {
         this.livreService = livreService;
+
     }
     @GetMapping("/welcome")
     public String welcome() {
@@ -58,11 +68,26 @@ public class LivreController {
         }
     }
 
+    @GetMapping("/livre/is-available/{id}")
+    public ResponseEntity<Boolean> isLivreAvailable(@PathVariable int id) {
+        boolean isAvailable = livreService.isLivreAvailable(id);
+        return new ResponseEntity<>(isAvailable, HttpStatus.OK);
+    }
 
-
-    @PutMapping("/livre/update")
-    public ResponseEntity<String> updateLivre(@Valid @RequestBody Livre livre) {
+    @PutMapping("/livre/update-status/{id}")
+    public ResponseEntity<Void> updateLivreStatus(@PathVariable int id, @RequestBody Status status) {
         try {
+            livreService.updateLivreStatus(id, status);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @PutMapping("/livre/update/{id}")
+    public ResponseEntity<String> updateLivre(@PathVariable int id, @Valid @RequestBody Livre livre) {
+        try {
+            livre.setId(id); // Set the ID of the livre to the provided ID
             livreService.updateLivre(livre);
             return ResponseEntity.status(HttpStatus.OK).body("livre updated successfully!");
         } catch (IllegalArgumentException e) {
@@ -135,18 +160,19 @@ public class LivreController {
         }
     }
     @GetMapping("/livres")
-    public ResponseEntity<Object> getAllLivres() {
+    public ResponseEntity<Object> getAllLivres(Pageable pageable) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(livreService.getAllLivres());
+            Page<Livre> livresPage = livreService.getAllLivres(pageable);
+            return ResponseEntity.status(HttpStatus.OK).body(livresPage);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid request parameters.");
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred.");
         }
-
     }
+
     @GetMapping("/livre/titre")
     public ResponseEntity<Livre> getLivreByTitre(@RequestParam String titre) {
         Livre livre = livreService.getLivreByTitre(titre);

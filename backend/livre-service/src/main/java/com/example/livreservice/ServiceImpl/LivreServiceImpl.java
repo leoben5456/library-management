@@ -2,12 +2,15 @@ package com.example.livreservice.ServiceImpl;
 
 import com.example.livreservice.Model.Category;
 import com.example.livreservice.Model.Livre;
+import com.example.livreservice.Model.Status;
 import com.example.livreservice.Repository.CategoryRepository;
 import com.example.livreservice.Repository.LivreRepository;
 import com.example.livreservice.Service.LivreService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,22 +45,22 @@ public class LivreServiceImpl implements LivreService {
 
         categoryRepository.save(category);
 
-        // Associate the book with the category
-        livre.setCategory(category);
-        livre.setCategoryName(category.getName());
-        // Assign other attributes (Optional but illustrative)
-        livre.setTitre(livre.getTitre());
-        livre.setAuteur(livre.getAuteur());
-        livre.setGenre(livre.getGenre());
-        livre.setImage(livre.getImage());
-        livre.setDatePublication(livre.getDatePublication());
-        livre.setLangue(livre.getLangue());
-        livre.setNbPages(livre.getNbPages());
-        livre.setPrix(livre.getPrix());
-        livre.setStatus(livre.getStatus());
+        // Check if the book already exists
+        Optional<Livre> existingLivre = livreRepository.findByTitreAndAuteur(livre.getTitre(), livre.getAuteur());
+        if (existingLivre.isPresent()) {
+            // Increment the quantity of the existing book
+            Livre existing = existingLivre.get();
+            existing.setQuantite(existing.getQuantite() + 1);
+            livreRepository.save(existing);
+        } else {
+            // Associate the book with the category
+            livre.setCategory(category);
+            livre.setCategoryName(category.getName());
+            livre.setQuantite(1); // Set initial quantity to 1
 
-        // Save the book
-        livreRepository.save(livre);
+            // Save the new book
+            livreRepository.save(livre);
+        }
     }
     @Override
     @Transactional
@@ -67,9 +70,25 @@ public class LivreServiceImpl implements LivreService {
     @Override
     @Transactional
     public void updateLivre(Livre livre) {
-        livreRepository.save(livre);
-    }
+        Optional<Livre> existingLivreOpt = livreRepository.findById(livre.getId());
+        if (existingLivreOpt.isPresent()) {
+            Livre existingLivre = existingLivreOpt.get();
 
+            if (existingLivre.getQuantite() > 0) {
+                existingLivre.setQuantite(existingLivre.getQuantite() - 1);
+
+                if (existingLivre.getQuantite() == 0) {
+                    existingLivre.setStatus(Status.BORROWED);
+                }
+            } else {
+                throw new IllegalStateException("Quantity already zero");
+            }
+
+            livreRepository.save(existingLivre);
+        } else {
+            throw new IllegalArgumentException("Livre not found");
+        }
+    }
     public Livre getLivre(int id) {
         if (livreRepository.findById(id).isPresent()) {
             return livreRepository.findById(id).get();
@@ -78,9 +97,9 @@ public class LivreServiceImpl implements LivreService {
         }
     }
 
-    @Override
-    public List<Livre> getAllLivres() {
-        return livreRepository.findAll();
+    public Page<Livre> getAllLivres(Pageable pageable){
+        return livreRepository.findAll(pageable);
+
     }
 
     @Override
@@ -106,6 +125,36 @@ public class LivreServiceImpl implements LivreService {
     @Override
     public List<Livre> getLivresByCategory(Category category) {
         return livreRepository.findByCategory(category);
+    }
+
+    @Override
+    public boolean isLivreAvailable(int id) {
+        Livre livre = livreRepository.findById(id).orElse(null);
+        return livre != null && "available".equalsIgnoreCase(String.valueOf(livre.getStatus()));
+    }
+
+    @Override
+    public void updateLivreStatus(int id, Status status) {
+        Livre livre = livreRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Livre not found"));
+        livre.setStatus(status);
+        livreRepository.save(livre);
+    }
+
+    @Override
+    public void incrementQuantite() {
+        List<Livre> livres = livreRepository.findAll();
+        for (Livre livre : livres) {
+            livre.setQuantite(livre.getQuantite() + 1);
+            livreRepository.save(livre);
+        }
+    }
+    @Override
+    public void decrementQuantite() {
+        List<Livre> livres = livreRepository.findAll();
+        for (Livre livre : livres) {
+            livre.setQuantite(livre.getQuantite() - 1);
+            livreRepository.save(livre);
+        }
     }
 
 

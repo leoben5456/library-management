@@ -2,6 +2,7 @@ package com.example.userservice.ServiceImpl;
 
 import com.example.livreservice.Model.Category;
 import com.example.livreservice.Model.Livre;
+import com.example.reservationservice.Model.Reservation;
 import com.example.userservice.Model.User;
 import com.example.userservice.Repository.UserRepository;
 import com.example.userservice.Service.UserService;
@@ -130,6 +131,44 @@ public class UserServiceImpl implements UserService {
                 .block();
     }
 
+    @Override
+    public void addReservation(Reservation reservation, String token) {
+        WebClient webClient = webClientBuilder.build();
+
+        webClient.post()
+                .uri("http://localhost:8080/reservation-service/reservation/creation")
+                .headers(headers -> headers.set(HttpHeaders.AUTHORIZATION, token))
+                .bodyValue(reservation)
+                .retrieve()
+                .bodyToMono(Void.class)
+                .block();
+    }
+
+    @Override
+    public void deleteReservation(int id, String token) {
+        WebClient webClient = webClientBuilder.build();
+
+        webClient.delete()
+                .uri("http://localhost:8080/reservation-service/deleteReservation/{id}", id)
+                .headers(headers -> headers.set(HttpHeaders.AUTHORIZATION, token))
+                .retrieve()
+                .bodyToMono(Void.class)
+                .block();
+    }
+
+    @Override
+    public void updateReservationById(int id, Reservation reservation, String token) {
+        WebClient webClient = webClientBuilder.build();
+
+        webClient.put()
+                .uri("http://localhost:8080/reservation-service/reservation/update/{id}" , id)
+                .headers(headers -> headers.set(HttpHeaders.AUTHORIZATION, token))
+                .bodyValue(reservation)
+                .retrieve()
+                .bodyToMono(Void.class)
+                .block();
+
+    }
 
 
 }

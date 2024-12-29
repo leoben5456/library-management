@@ -1,6 +1,7 @@
 package com.example.reservationservice.Controller;
 
 import com.example.livreservice.Model.Livre;
+import com.example.livreservice.Model.Status;
 import com.example.reservationservice.Model.Reservation;
 import com.example.reservationservice.Service.ReservationService;
 import jakarta.validation.Valid;
@@ -19,12 +20,36 @@ public class ReservationController {
         this.reservationService = reservationService;
 
     }
-    @PostMapping("/reservation/creation")
-    public ResponseEntity<String> createReservation(@Valid @RequestBody Reservation reservation) {
+    @PostMapping("/reservation/creation/{livreId}")
+    public ResponseEntity<String> createReservation(@PathVariable int livreId, @Valid @RequestBody Reservation reservation, @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
         try {
-            reservationService.saveReservation(reservation);
-            return ResponseEntity.status(HttpStatus.CREATED).body("Reservation created successfully!");
+            if (!reservationService.checkLivreAvailability(livreId, token)) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The book is not available");
+            }
 
+            // Get the book details
+            Livre livre = reservationService.getLivreById(livreId, token);
+            if (livre == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Book not found");
+            }
+
+            // Decrement the quantity
+            int newQuantite = livre.getQuantite() - 1;
+            livre.setQuantite(newQuantite);
+
+            // Update the status if quantity is 0
+            if (newQuantite == 0) {
+                livre.setStatus(Status.BORROWED);
+            }
+
+            // Save the updated book details
+            reservationService.updateLivreStatus(livreId, livre.getStatus(), token);
+
+            // Save the reservation
+            reservation.setLivreId(livreId);
+            reservationService.saveReservation(reservation, token);
+
+            return ResponseEntity.status(HttpStatus.CREATED).body("Reservation created successfully!");
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid input: " + e.getMessage());
@@ -61,6 +86,11 @@ public class ReservationController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error", "An unexpected error occurred. Please try again later."));
         }
+    }
+    @GetMapping("/reservation/check-livre-availability/{id}")
+    public ResponseEntity<Boolean> checkLivreAvailability(@PathVariable int id, @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+        boolean isAvailable = reservationService.checkLivreAvailability(id, token);
+        return new ResponseEntity<>(isAvailable, HttpStatus.OK);
     }
     // Inner class for API error response
     public static class ApiError {
