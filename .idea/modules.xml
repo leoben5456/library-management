@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/library-management.iml" filepath="$PROJECT_DIR$/.idea/library-management.iml" />
       <module fileurl="file://$PROJECT_DIR$/backend/livre-service/livre-service.iml" filepath="$PROJECT_DIR$/backend/livre-service/livre-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/backend/reservation-service/reservation-service.iml" filepath="$PROJECT_DIR$/backend/reservation-service/reservation-service.iml" />
     </modules>
   </component>
 </project>

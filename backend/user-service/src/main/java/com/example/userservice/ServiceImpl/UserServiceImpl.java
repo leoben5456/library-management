@@ -7,6 +7,7 @@ import com.example.userservice.Model.User;
 import com.example.userservice.Repository.UserRepository;
 import com.example.userservice.Service.UserService;
 import jakarta.ws.rs.core.HttpHeaders;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -20,18 +21,20 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final WebClient.Builder webClientBuilder;
+    private final KafkaTemplate<String, Long> kafkaTemplate;
 
-    public UserServiceImpl(PasswordEncoder passwordEncoder, UserRepository userRepository, WebClient.Builder webClientBuilder) {
+    public UserServiceImpl(PasswordEncoder passwordEncoder, UserRepository userRepository, WebClient.Builder webClientBuilder, KafkaTemplate<String, Long> kafkaTemplate) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.webClientBuilder = webClientBuilder;
+        this.kafkaTemplate = kafkaTemplate;
     }
 
 
     @Override
     public void saveUser(User user) {
 
-
+        System.out.println("Role before saving: " + user.getRole());
         user.setName(user.getName());
         user.setEmail(user.getEmail());
         user.setTelephone(user.getTelephone());
@@ -39,7 +42,8 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
 
-
+        long totalUsers = userRepository.count();
+        kafkaTemplate.send("user-count-topic", totalUsers);
     }
 
 
@@ -169,6 +173,12 @@ public class UserServiceImpl implements UserService {
                 .block();
 
     }
+
+    @Override
+    public long count(){
+        return userRepository.count();
+    }
+
 
 
 }

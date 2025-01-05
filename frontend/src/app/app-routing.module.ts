@@ -1,6 +1,8 @@
 // app-routing.module.ts
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './components/login/login.component';
+import { SigninComponent } from './components/signin/signin.component';
 
 const routes: Routes = [
   {
@@ -17,10 +19,24 @@ const routes: Routes = [
         (m) => m.AdminLayoutModule
       ),
   },
+  
+
+  {
+    path:'auth/login',
+    component:LoginComponent
+  },
+
+  {
+     path:'auth/signup',
+     component:SigninComponent
+
+  },
+  
   {
     path: '**',
     redirectTo: '',
   },
+
 ];
 
 @NgModule({

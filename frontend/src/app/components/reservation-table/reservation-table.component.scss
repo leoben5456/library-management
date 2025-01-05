@@ -1,0 +1,44 @@
+
+.table-container{
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.table-container .header{
+    border: 1px solid #c5c0c0;
+    border-radius:10px;
+    padding:10px;
+}
+
+.header button{
+    margin-right: 10px;
+}
+
+::ng-deep  .btn-add{
+    background-color: #4CAF50 !important;
+    border-radius:25px;
+    color: white !important;
+}
+
+::ng-deep .btn-delete{
+    background-color: #f44336 !important;
+    border-radius:25px;
+    color: white !important;
+}
+.card{
+    width:100%;
+}
+
+
+
+
+:host ::ng-deep
+.xsmall-button.p-button-icon-only {
+  min-width: 1.5rem !important;
+  width:35px !important;
+  height: 5vh !important;
+}
+:host ::ng-deep .xsmall-button{
+    margin-left: 0.5rem !important;
+}

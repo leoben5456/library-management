@@ -1,54 +1,124 @@
 .container {
-    display: grid;
-    grid-template-columns: 3fr 1fr; 
-    grid-template-rows: 2fr 2fr; 
-    gap: 20px; 
-    height: 93vh;
-  }
-  
+  display: grid;
+  grid-template-columns: 3fr 1fr; 
+  grid-template-rows: 2fr 2fr; 
+  gap: 20px; 
+  height: 93vh;
+}
+
 .horizontal.top {
-    grid-column: 1 / 2; 
-    background-color: white; 
-    border-radius: 5px;
-    margin-top:10px;
-  }
-  
+  grid-column: 1 / 2; 
+  background-color: white; 
+  border-radius: 5px;
+  margin-top:10px;
+}
+
 .horizontal.middle {
-    grid-column: 1 / 2;
-    background-color: white; 
-    border-radius: 5px;
-  }
-  
+  grid-column: 1 / 2;
+  background-color: white; 
+  border-radius: 5px;
+}
+
 .horizontal.bottom {
-    grid-column: 1 / 2;
-    background-color: white; 
-    border-radius: 5px;
-  }
-  
+  grid-column: 1 / 2;
+  background-color: white; 
+  border-radius: 5px;
+}
+
 .vertical.sidebar {
-    grid-column: 2 / 3; 
-    grid-row: 1 / 4; 
-    background-color: #D3D3D3; 
-  }
+  grid-column: 2 / 3; 
+  grid-row: 1 / 4; 
+  background-color: #D3D3D3; 
+}
 
-
-
-.horizontal.top .header{
+.horizontal.top .header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.horizontal.top .header div{
+.horizontal.top .header div {
   font-size: 16px;
   padding-top:15px;
-  font-weight: bold;
+  font-weight:550;
 }
 
-.horizontal.top .header .title{
-  padding-left:25px;
+.horizontal.top .header .title {
+  margin-left:20px;
 }
 
-.horizontal.top .header .btn{
-  padding-right:25px;
+.horizontal.top .header .btn {
+  margin-right:20px;
+}
+
+.recommended-books {
+  display: flex;
+  gap: 8px;
+  padding-left: 15px;
+  padding-top:5px;
+  padding-bottom: 10px;
+  overflow-x: auto; 
+}
+
+.book {
+  background-color: white;
+  border: 1px solid #ececec;
+  border-radius: 5px;
+  width: 150px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+   
+  
+}
+
+.book img {
+  width: 100%; 
+  height: 180px; 
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  margin-bottom: 10px; 
+}
+
+.book h3 {
+  font-size: 14px;
+  margin: 0 0 5px; 
+  color: #333; 
+  font-weight:500;
+}
+
+.book p {
+  font-size: 12px;
+  color: #666;
+  margin: 0; 
+  font-weight:500;
+}
+
+.book-info{
+  padding-bottom:5px;
+  padding-left:10px;
+}
+
+.middle .header{
+  padding:20px 20px 10px 20px;
+  font-size: 16px;
+  font-weight:550;
+}
+
+
+.categories{
+  padding-left:20px;
+  padding-right:20px;
+  padding-top:2px;
+  font-size: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.category{
+  padding:5px 10px 5px 10px;
+  border-radius: 5px;
+  background-color: rgb(234, 234, 255);
 }

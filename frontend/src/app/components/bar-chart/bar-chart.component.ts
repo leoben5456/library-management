@@ -1,22 +1,24 @@
 import { Component, ViewChild } from '@angular/core';
 import {
+  ChartComponent,
   ApexAxisChartSeries,
   ApexChart,
-  ChartComponent,
-  ApexDataLabels,
   ApexXAxis,
-  ApexPlotOptions
+  ApexDataLabels,
+  ApexTitleSubtitle,
+  ApexStroke,
+  ApexGrid
 } from "ng-apexcharts";
-
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
-  dataLabels: ApexDataLabels;
-  plotOptions: ApexPlotOptions;
   xaxis: ApexXAxis;
+  dataLabels: ApexDataLabels;
+  grid: ApexGrid;
+  stroke: ApexStroke;
+  title: ApexTitleSubtitle;
 };
-
 @Component({
   selector: 'app-bar-chart',
   templateUrl: './bar-chart.component.html',
@@ -30,35 +32,45 @@ export class BarChartComponent {
     this.chartOptions = {
       series: [
         {
-          name: "basic",
-          data: [400, 430, 448, 470, 540, 580, 690, 1100, 1200, 1380]
+          name: "Penalties",
+          data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
         }
       ],
       chart: {
-        type: "bar",
-        height: 350,
-        
-      },
-      plotOptions: {
-        bar: {
-          horizontal: true
+        height: 300,
+        type: "line",
+        offsetY: -15,
+        zoom: {
+          enabled: false
+        },
+        toolbar: {
+          show: false
         }
       },
       dataLabels: {
         enabled: false
       },
+      stroke: {
+        curve: "straight"
+      },
+
+      grid: {
+        row: {
+          colors: ["#f3f3f3", "transparent"],
+          opacity: 0.5
+        }
+      },
       xaxis: {
         categories: [
-          "South Korea",
-          "Canada",
-          "United Kingdom",
-          "Netherlands",
-          "Italy",
-          "France",
-          "Japan",
-          "United States",
-          "China",
-          "Germany"
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep"
         ]
       }
     };

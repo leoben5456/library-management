@@ -7,8 +7,11 @@ import { TopBarComponent } from '../../components/top-bar/top-bar.component';
 @NgModule({
   declarations: [TopBarComponent],
   exports: [
-    TopBarComponent
+    TopBarComponent,
+    CommonModule
   ],
+
+  
   imports: [
     CommonModule
   ]

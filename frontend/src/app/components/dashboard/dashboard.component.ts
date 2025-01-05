@@ -20,15 +20,15 @@ export class DashboardComponent {
         return [
           { component:PieChartComponent,title: 'User Breakdown', cols: 1, rows: 1 },
           { component:RadarChartComponent,title: 'Borrow & Back', cols: 1, rows: 1 },
-          { component:BarChartComponent,title: 'Top Borrowed Books', cols: 1, rows: 1 },
+          { component:BarChartComponent,title: 'Penalties Overview', cols: 1, rows: 1 },
           { component:PieChartComponent,title: 'Card 4', cols: 1, rows: 1 }
         ];
       }
 
       return [
-        { component:PieChartComponent,title: 'User Breakdown', cols: 1, rows: 1 }, 
+        { component:PieChartComponent,title: 'User Breakdown', cols: 1, rows: 1 },
         { component:RadarChartComponent,title: 'Borrow & Back', cols: 1, rows: 1 },
-        { component:BarChartComponent,title: 'Top Borrowed Books', cols: 1, rows: 2 },
+        { component:BarChartComponent,title: 'Penalties Overview', cols: 1, rows: 1 },
         { component:PieChartComponent,title: 'Card 4', cols: 1, rows: 1 }
       ];
     })

@@ -2,7 +2,7 @@
     display: grid;
     grid-template-rows: 50px auto;
     grid-template-columns: 230px auto;
-    height: 100vh;
+    height: 80vh;
     width: 100%;
     
 }
@@ -11,12 +11,12 @@
     grid-row: 1 / 3;
     grid-column: 1 / 2;
     background-color: white;
-    padding: 20px;
     color: black;
     font-weight: bold;
     display: flex;
     flex-direction: column;
     border-right: 1px solid #ececec;
+    
 }
 
 .top-bar {
@@ -36,4 +36,5 @@
     background-color: #f8f9fa;
     display: flex;
     flex-direction: column;
+    padding-left: 20px;
 }

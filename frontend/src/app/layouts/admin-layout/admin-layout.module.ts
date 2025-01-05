@@ -32,6 +32,8 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { DialogModule } from '@angular/cdk/dialog';
 import { FileUploadModule } from 'primeng/fileupload';
+import { ReservationTableComponent } from '../../components/reservation-table/reservation-table.component';
+import { AdminSideNavComponent } from '../../components/admin-side-nav/admin-side-nav.component';
 @NgModule({
   declarations: [
     AdminLayoutComponent,
@@ -40,7 +42,9 @@ import { FileUploadModule } from 'primeng/fileupload';
     BookDialogComponent,
     PieChartComponent,
     RadarChartComponent,
-    BarChartComponent
+    BarChartComponent,
+    ReservationTableComponent,
+    AdminSideNavComponent,
   ],
   imports: [
     CommonModule,
@@ -67,8 +71,8 @@ import { FileUploadModule } from 'primeng/fileupload';
     DialogModule,
     DynamicDialogModule,
     FileUploadModule
-   
-    
+
+
   ],
   providers: [MessageService,DialogService,MessageService,ConfirmationService],
 })

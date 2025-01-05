@@ -1,0 +1,53 @@
+<div class="container">
+    <div class="Login-Form" [formGroup]="SignupForm">
+       <!--- Email input  --->
+       <div>
+          <p-floatLabel variant="on">
+             <input pInputText id="on_label" formControlName="email"  autocomplete="off" />
+             <label for="on_label">Email</label>
+         </p-floatLabel>
+         <div class="error" *ngIf="SignupForm.get('email')?.errors?.['required']&& SignupForm.get('email')?.touched "><p>Email is required.</p></div>
+       </div>
+
+
+       <!--- Name input  --->
+       <div>
+        <p-floatLabel variant="on">
+           <input pInputText id="on_label" formControlName="email"  autocomplete="off" />
+           <label for="on_label">Full Name</label>
+       </p-floatLabel>
+       <div class="error" *ngIf="SignupForm.get('email')?.errors?.['required']&& SignupForm.get('email')?.touched "><p>Email is required.</p></div>
+      </div>
+
+      
+
+       <!--- Password input  --->
+      <div>
+       <p-floatLabel variant="on">
+          <input pInputText id="on_label" formControlName="password"  autocomplete="off" />
+          <label for="on_label">Password</label>
+         </p-floatLabel>
+         <div class="error" *ngIf="SignupForm.get('password')?.errors?.['required']&& SignupForm.get('password')?.touched "><p>Password is required.</p></div>
+      </div>
+
+      <!--- Role input  --->
+      <div class="role" >
+        <p-selectButton 
+      [options]="stateOptions" 
+      [(ngModel)]="value" 
+      optionLabel="label" 
+      optionValue="value" />
+      </div>
+ 
+       <!--- Login button  --->
+       <div>
+          <p-button styleClass="btn" [disabled]="!SignupForm.valid" (click)="onSignup()"  label="Sign up" />
+       </div>
+ 
+       <span routerLink="/auth/login" class="forget-password">You already have account?</span>
+       
+    </div>
+    
+   
+ </div>
+ 

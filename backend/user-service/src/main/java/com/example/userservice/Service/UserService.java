@@ -19,5 +19,6 @@ public interface UserService {
     void addReservation(Reservation reservation , String token);
     void deleteReservation(int id, String token);
     void updateReservationById(int id, Reservation reservation , String token);
+    long count();
 
 }

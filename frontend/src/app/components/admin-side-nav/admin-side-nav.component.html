@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="Header">
+        <h2>Admin Panel</h2>
+    </div>
+
+    <div class="nav-links">
+        <div routerLink="/admin/Dashboard" routerLinkActive="active">
+            <i class="fa-solid fa-chart-line"></i><span>Dashboard</span>
+        </div>
+        <div routerLink="/admin/Manage/Books" routerLinkActive="active">
+            <i class="fa-solid fa-book"></i><span>Books</span>
+        </div>
+        <div routerLink="/admin/Reservations" routerLinkActive="active">
+            <i class="fa-regular fa-file"></i><span>Reservations</span>
+        </div>
+        <div routerLink="/admin/Reports" routerLinkActive="active">
+            <i class="fa-solid fa-magnifying-glass-chart"></i><span>Analytics</span>
+        </div>
+
+        <div class="logout" (Onclick)="confirm($event)" >
+            <i class="fa-solid fa-sign-out"></i><span>Logout</span>
+
+        </div>
+        
+    </div>
+</div>

@@ -15,19 +15,28 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { SharedModule } from './modules/shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { SigninComponent } from './components/signin/signin.component';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { FormsModule } from '@angular/forms';
+import { authInterceptor } from './core/interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+    SigninComponent,
     
     
-    
-   
+
+
+
+
+
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule, 
+    AppRoutingModule,
     InputTextModule,
     FloatLabelModule,
     ButtonModule,
@@ -39,9 +48,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatIconModule,
     MatButtonModule,
     SharedModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule,
+    SelectButtonModule,
+    FormsModule,
+    
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS,useClass: authInterceptor,multi: true,},],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

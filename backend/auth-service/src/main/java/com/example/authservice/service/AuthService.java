@@ -21,6 +21,7 @@ public class AuthService {
 
 
     public LoginResponse authenticate(LoginRequest loginRequest){
+
         UserDTO userDTO = verificationService.verifyUser(loginRequest.getEmail(), loginRequest.getPassword())
                 .block();
 

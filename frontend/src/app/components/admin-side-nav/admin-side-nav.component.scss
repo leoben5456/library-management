@@ -1,0 +1,40 @@
+
+.Header{
+    padding-left:12px;
+}
+
+.container{
+    width: 230px;
+    padding-top: 25px;
+}
+
+.nav-links {
+    display: block;
+    
+}
+
+.nav-links div{
+    margin-bottom: 20px;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 12px 12px 12px 20px;
+
+}
+
+
+.nav-links span{
+    margin-left: 10px;
+}
+
+.active{
+    background-color: #e5e2ff;
+    border-radius: 5px;
+    font-weight:bold;
+}
+
+
+
+.logout{
+    position: relative;
+    bottom: 0;
+}
