@@ -20,7 +20,6 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { DropdownModule } from 'primeng/dropdown';
 import { HttpClientModule } from '@angular/common/http';
 import { ButtonModule } from 'primeng/button';
-import { FormsModule } from '@angular/forms';
 import { BookDialogComponent } from '../../components/book-dialog/book-dialog.component';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -58,14 +57,10 @@ import { AdminSideNavComponent } from '../../components/admin-side-nav/admin-sid
     MatDialogModule,
     TableModule,
     TagModule,
-    IconFieldModule,
-    InputIconModule,
-    InputTextModule,
     MultiSelectModule,
     DropdownModule,
     HttpClientModule,
     ButtonModule,
-    FormsModule,
     ToastModule,
     NgApexchartsModule,
     DialogModule,
@@ -74,6 +69,6 @@ import { AdminSideNavComponent } from '../../components/admin-side-nav/admin-sid
 
 
   ],
-  providers: [MessageService,DialogService,MessageService,ConfirmationService],
+  
 })
 export class AdminLayoutModule { }

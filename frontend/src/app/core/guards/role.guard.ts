@@ -20,7 +20,7 @@ export const RoleGuard: CanActivateFn = (
       return true; 
     } else {
       // Redirect to unauthorized page
-      return router.parseUrl('/unauthorized');
+      return router.parseUrl('/auth/login');
     }
   } else {
     // Redirect to login page

@@ -30,7 +30,7 @@ public class LivreServiceImpl implements LivreService {
     @Transactional
     public void saveLivre(Livre livre) {
         // Handle category logic
-        String categoryName = livre.getCategory().getName();
+        String categoryName = livre .getCategory().getName();
         Optional<Category> existingCategory = categoryRepository.findByName(categoryName);
 
         Category category;

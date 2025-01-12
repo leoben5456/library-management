@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: 3fr 1fr; 
   grid-template-rows: 2fr 2fr; 
-  gap: 20px; 
+  gap: 15px; 
   height: 93vh;
 }
 
@@ -28,7 +28,7 @@
 .vertical.sidebar {
   grid-column: 2 / 3; 
   grid-row: 1 / 4; 
-  background-color: #D3D3D3; 
+  background-color: #070746; 
 }
 
 .horizontal.top .header {
@@ -39,8 +39,9 @@
 
 .horizontal.top .header div {
   font-size: 16px;
-  padding-top:15px;
   font-weight:550;
+  margin-top:10px;
+  margin-bottom:5px;
 }
 
 .horizontal.top .header .title {
@@ -49,6 +50,11 @@
 
 .horizontal.top .header .btn {
   margin-right:20px;
+  color: blue;
+  background-color: rgb(234, 234, 255);
+  padding:2px 15px 2px 15px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .recommended-books {
@@ -58,6 +64,7 @@
   padding-top:5px;
   padding-bottom: 10px;
   overflow-x: auto; 
+  margin-bottom: 5px;
 }
 
 .book {
@@ -121,4 +128,112 @@
   padding:5px 10px 5px 10px;
   border-radius: 5px;
   background-color: rgb(234, 234, 255);
+  cursor: pointer;
+}
+
+
+
+
+.selectedCategory{
+  background-color: #5a5af3;
+  color: white;
+  
+}
+
+.books-of-category{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  padding-left:20px;
+  padding-top:10px;
+}
+
+.books-of-category .book{
+  width: 120px;
+  
+}
+
+.books-of-category .book img{
+  height: 120px;
+}
+
+
+.vertical {
+   text-align: center;
+   padding-top: 50px;
+   color: white;
+   
+}
+
+
+.vertical .book-details img {
+  width: 150px;
+  height: 200px;
+  border-radius: 5px;
+ 
+  
+
+}
+
+.book-info p,h4{
+  margin: 0;
+  margin-top:10px;
+}
+
+.book-info .author{
+  margin-bottom:5px;
+  font-size:16px;
+}
+
+
+
+
+.rating-container {
+  display: inline-block;
+  padding-top:5px;
+  
+}
+
+.rating-container span{
+  font-size: 18px; 
+  margin-left: 5px;
+}
+
+::ng-deep p-rating .p-rating-icon {
+  font-size: 10px !important;
+  margin-right: -1px !important;
+  color: #e9c603 !important;
+}
+
+::ng-deep p-rating .p-rating-icon.pi-star-fill {
+  color: #d7d3bb !important;
+}
+
+::ng-deep p-rating .p-rating-icon.pi-star {
+  color: #ccc !important;
+}
+
+
+.book-info .description{
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 0px 20px 0px 20px;
+
+}
+
+
+.btn{
+  margin-top:40px;
+}
+
+.btn button{
+  padding:10px 20px 10px 20px;
+  border-radius: 5px;
+  background-color: #2121fc;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  outline: none;
+  border: none;
 }

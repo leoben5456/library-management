@@ -1,0 +1,26 @@
+<div class="books-container">
+    <div class="container-conent">
+        <div *ngFor="let book of Books" class="book">
+            <div class="cover">
+                <img [src]="getBookCover(book)" alt="cover">
+            </div>
+
+            <div class="info">
+               <div class="title-container"><span>{{book.titre}}</span></div>
+               <div><p>{{book.auteur}}</p></div>
+               <div><p-rating [(ngModel)]="book.rating" [readonly]="true" [cancel]="false" /></div>
+               <div><button class="btn btn-primary">Reserve Now</button></div>
+            </div>
+
+        </div>
+        <div class="paginator">
+            <p-paginator 
+        (onPageChange)="onPageChange($event)" 
+        [first]="page"
+        [rows]="size" 
+        [totalRecords]="120" 
+        [rowsPerPageOptions]="[3, 9, 12]" />
+        </div>
+    </div>
+
+</div>

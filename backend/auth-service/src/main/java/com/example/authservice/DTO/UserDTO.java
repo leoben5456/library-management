@@ -11,4 +11,6 @@ import lombok.NoArgsConstructor;
 public class UserDTO {
     String email;
     Role role;
+    String profilePicturePath;
+
 }

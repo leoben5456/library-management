@@ -12,24 +12,32 @@ const routes: Routes = [
   {
     path: '',
     component: AdminLayoutComponent,
+    canActivate: [AuthGuard],
     
     
     children: [
       {
         path: 'Dashboard',
         component: DashboardComponent,
+        canActivate: [RoleGuard],
+        data: { roles: ['admin'] },
+        
         
         
       },
       {
         path: 'Manage/Books',
         component: BooksTableComponent,
+        canActivate: [RoleGuard],
+        data: { roles: ['admin'] },
         
         
       },
       {
         path: 'Reservations',
         component: ReservationTableComponent,
+        canActivate: [RoleGuard],
+        data: { roles: ['admin'] },
         
        
       }

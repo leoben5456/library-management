@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-admin-side-nav',
@@ -9,9 +10,10 @@ import { ConfirmationService } from 'primeng/api';
 export class AdminSideNavComponent {
 
 
-  constructor(private confirmationService: ConfirmationService){}
+  constructor(private confirmationService: ConfirmationService,private authService:AuthService){}
 
   confirm(event: Event) {
+    this.authService.logout();
     this.confirmationService.confirm({
         target: event.target as EventTarget,
         message: 'Are you sure that you want to proceed?',
@@ -29,8 +31,6 @@ export class AdminSideNavComponent {
 }
 
 
-   logout(){
-    
-   }
+  
 
 }

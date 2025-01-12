@@ -12,17 +12,19 @@
 
   <div class="card">
     <p-table
-      #dt
-      [value]="books"
-      dataKey="id"
-      [rows]="5"
-      [rowsPerPageOptions]="[10, 25, 50]"
-      [loading]="loading"
-      [paginator]="true"
-      [globalFilterFields]="['name', 'category', 'author']"
-      selectionMode="multiple"
-      [(selection)]="selectedBooks"
-    >
+    #dt
+    [value]="Books"
+    [paginator]="true"
+    [totalRecords]="totalRecords"
+    [rows]="size"
+    [rowsPerPageOptions]="[5,10,15]"
+    [lazy]="true"
+    (onLazyLoad)="onPageChange($event)"
+    [globalFilterFields]="['titre', 'genre', 'auteur']"
+    selectionMode="multiple"
+    [(selection)]="selectedBooks"
+  >
+>
       <!-- Caption (Manage Books and Search Bar) -->
       <ng-template pTemplate="caption">
         <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -58,9 +60,9 @@
           <td>
             <p-tableCheckbox [value]="book"></p-tableCheckbox>
           </td>
-          <td>{{ book.name }}</td>
-          <td>{{ book.category }}</td>
-          <td>{{ book.author }}</td>
+          <td>{{ book.titre }}</td>
+          <td>{{ book.genre }}</td>
+          <td>{{ book.auteur }}</td>
           <td>
             <p-button
             icon="pi pi-pencil"

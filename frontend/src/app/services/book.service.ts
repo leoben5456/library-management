@@ -1,4 +1,7 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment.development';
 
 export interface Book {
   checkbox: boolean;
@@ -13,7 +16,7 @@ export interface Book {
 })
 export class BookService {
 
-  constructor() {}
+  constructor(private http:HttpClient) {}
 
   getBooks(): Promise<Book[]> {
     return Promise.resolve([
@@ -61,4 +64,18 @@ export class BookService {
       }
     ]);
   }
+
+  
+   getAllBooks(page:number,size:number):Observable<any>{
+
+     const url=environment.BooksApi
+
+     let params=new HttpParams()
+      .set('size',size.toString())
+      .set('page',page.toString())
+      
+      return this.http.get(url, { params });
+   }
+  
+
 }

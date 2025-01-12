@@ -25,6 +25,8 @@ public class AuthService {
         UserDTO userDTO = verificationService.verifyUser(loginRequest.getEmail(), loginRequest.getPassword())
                 .block();
 
+        System.out.println("auth user Details:" + userDTO);
+
         if (userDTO != null) {
             String accessToken = jwtService.generateToken(userDTO);
             String refreshToken = jwtService.generateRefreshToken(userDTO);

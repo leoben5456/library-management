@@ -8,17 +8,27 @@ import com.example.userservice.Model.User;
 import com.example.userservice.Repository.UserRepository;
 import com.example.userservice.Service.UserService;
 import com.example.userservice.dto.UserDTO;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class UserController {
@@ -110,15 +120,41 @@ public class UserController {
 
 
 
-    @PostMapping("/user/inscription")
-    public ResponseEntity<String> inscription(@Valid @RequestBody User user) {
+    // The folder where profile images will be stored
+    private static final String UPLOAD_DIR = "/home/naoufal-ben/IdeaProjects/library-management/backend/uploads/user-profile/";
+
+    @PostMapping(value = "/user/inscription", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<String> inscription(
+            @RequestPart("user") String userJson,
+            @RequestPart(value = "file", required = false) MultipartFile file
+    ) {
         try {
-            System.out.println("User before saving: " + user);
+            // Parse the user JSON
+            ObjectMapper objectMapper = new ObjectMapper();
+            User user = objectMapper.readValue(userJson, User.class);
+
+            // If a file is included, handle the upload
+            if (file != null && !file.isEmpty()) {
+                // Generate a unique filename (optional)
+                String originalFilename = file.getOriginalFilename();
+                String uniqueFilename = UUID.randomUUID() + "_" + originalFilename;
+
+                // Build the target location
+                Path targetLocation = Paths.get(UPLOAD_DIR + uniqueFilename);
+                // Copy the file to the target location
+                Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+
+                // Set the path or URL in the user entity (storing only the filename or the complete URL)
+                user.setProfilePicturePath(uniqueFilename);
+            }
+
+            // Save the user
             userService.saveUser(user);
+
             return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully!");
-        } catch (IllegalArgumentException e) {
+        } catch (IOException e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid input: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Could not parse user data: " + e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error during registration: " + e.getMessage());
@@ -136,8 +172,8 @@ public class UserController {
             }
 
             User userFound = userOptional.get();
-            UserDTO userDTO = new UserDTO(userFound.getEmail(), userFound.getRole());
-
+            UserDTO userDTO = new UserDTO(userFound.getEmail(), userFound.getRole(),user.getProfilePicturePath());
+            System.out.println("User details:"+userDTO);
             boolean passwordMatches = passwordEncoder.matches(user.getPassword(), userFound.getPassword());
             if (!passwordMatches) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED)

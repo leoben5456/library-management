@@ -40,6 +40,7 @@ public class UserServiceImpl implements UserService {
         user.setTelephone(user.getTelephone());
         user.setRole(user.getRole());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setProfilePicturePath(user.getProfilePicturePath());
         userRepository.save(user);
 
         long totalUsers = userRepository.count();

@@ -2,11 +2,11 @@
     <div class="horizontal top">
         <div class="header">
            <div class="title"><span>Recommended</span></div>
-           <div class="btn">See All</div>
+           <div class="btn">See All  </div>
         </div>
         <div class="recommended-books">
             <!-- Use *ngFor to loop through the books array -->
-            <div class="book" *ngFor="let book of books">
+            <div class="book" *ngFor="let book of books" (click)="selectBook(book.id)" >
                 <img [src]="book.image" [alt]="book.title">
                 <div class="book-info">
                     <h3>{{ book.title | truncate:17 }}</h3>
@@ -21,14 +21,38 @@
             <span>Categories</span>
         </div>
         <div class="categories">
-            <div class="category" *ngFor="let category of categories">
-                <span>{{ category }}</span>
-
+            <div (click)="selectCategory(category.name)" [class.selectedCategory]="selectedCategory === category.name"    class="category" *ngFor="let category of categories">
+                <span>{{ category.name }}</span>
             </div>
+        </div>
+        <div class="books-of-category" >
+            <div class="book" *ngFor="let book of books">
+                <img [src]="book.image" [alt]="book.title">
+                <div class="book-info">
+                    <h3>{{ book.title | truncate:10 }}</h3>
+                    <p>{{ book.author }}</p>
+                </div>
+            </div>
+             
         </div>
     </div>
 
     <div class="vertical sidebar">
-        <!-- Sidebar content -->
+        <div *ngFor="let book of books">
+            <div *ngIf="book.id === selectedBookId" class="book-details">
+              <img [src]="book.image">
+              <div class="book-info">
+                <h4>{{ book.title }}</h4>
+                <p class="author" >{{ book.author }}</p>
+                <div class="rating-container">
+                    <p-rating [(ngModel)]=book.stars [readonly]="true" [cancel]="false"></p-rating>
+                    <span>{{ value }}</span>
+                </div>  
+                <p class="description">{{ book.description }}</p>
+                <div class="btn"><button>Reserve Now</button></div>            
+              </div>
+            </div>
+        </div>
+          
     </div>
 </div>

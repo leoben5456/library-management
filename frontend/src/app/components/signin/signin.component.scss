@@ -17,7 +17,7 @@
 }
 
 .Login-Form div{
-    margin-bottom:30px;
+    margin-bottom:15px;
 
 }
 
@@ -61,3 +61,43 @@
 .role{
     text-align: center;
 }
+
+
+
+.role{
+    text-align: center;
+}
+
+
+
+:host ::ng-deep .p-selectbutton {
+    background-color: #f5f7fa;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    width: 100%;
+  }
+  
+  :host ::ng-deep .p-selectbutton .p-button {
+    border: none;
+    border-radius: 0.25rem;
+    color: #69707a;
+    background-color: transparent;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  :host ::ng-deep .p-selectbutton .p-button.p-highlight {
+    background-color: #ffffff;
+    color: #111927;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  }
+  
+  :host ::ng-deep .p-selectbutton .p-button:not(.p-highlight):hover {
+    background-color: #e0e7ff;
+  }
+
+
+
+  ::ng-deep .p-inputtext{
+ width: 100%;
+  }

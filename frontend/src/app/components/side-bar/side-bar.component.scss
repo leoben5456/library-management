@@ -13,6 +13,7 @@
 
 .container .content .head-name {
     padding-top: 50px;
+    padding-left:20px;
     
 }
 .container .content .head-name h2{
@@ -28,10 +29,11 @@
 
 }
 
-div span{
+.list div span{
     padding-left: 10px;
-    
 }
+
+
 
 .logout{
     position: absolute;
@@ -41,3 +43,5 @@ div span{
     color: rgb(156, 156, 156);
     cursor: pointer;
 }
+
+

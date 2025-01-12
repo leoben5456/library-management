@@ -16,9 +16,9 @@ import java.util.Map;
 @Document(collection = "users_statistics")
 public class UsersStatistics {
     @Id
-    private String id; // Use "current" as static ID for the latest stats
-    private int totalUsers; // Total number of users (user service)
-    private Map<String, Double> userBreakdown; // (user service)
+    private String id;
+    private int totalUsers;
+    private Map<String, Double> userBreakdown;
     private int percentageChange;
     private LocalDateTime lastUpdated;
 }

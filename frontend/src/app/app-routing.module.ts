@@ -6,37 +6,25 @@ import { SigninComponent } from './components/signin/signin.component';
 
 const routes: Routes = [
   {
+    path: 'auth/login',
+    component: LoginComponent
+  },
+  {
+    path: 'auth/signup',
+    component: SigninComponent
+  },
+  {
     path: '',
-    loadChildren: () =>
-      import('./layouts/user-layout/user-layout.module').then(
-        (m) => m.UserLayoutModule
-      ),
+    loadChildren: () => import('./layouts/user-layout/user-layout.module').then(m => m.UserLayoutModule)
   },
   {
     path: 'admin',
-    loadChildren: () =>
-      import('./layouts/admin-layout/admin-layout.module').then(
-        (m) => m.AdminLayoutModule
-      ),
+    loadChildren: () => import('./layouts/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule)
   },
-  
-
-  {
-    path:'auth/login',
-    component:LoginComponent
-  },
-
-  {
-     path:'auth/signup',
-     component:SigninComponent
-
-  },
-  
   {
     path: '**',
-    redirectTo: '',
-  },
-
+    redirectTo: ''
+  }
 ];
 
 @NgModule({

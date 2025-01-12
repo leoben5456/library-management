@@ -1,53 +1,101 @@
 <div class="container">
-    <div class="Login-Form" [formGroup]="SignupForm">
-       <!--- Email input  --->
-       <div>
-          <p-floatLabel variant="on">
-             <input pInputText id="on_label" formControlName="email"  autocomplete="off" />
-             <label for="on_label">Email</label>
-         </p-floatLabel>
-         <div class="error" *ngIf="SignupForm.get('email')?.errors?.['required']&& SignupForm.get('email')?.touched "><p>Email is required.</p></div>
-       </div>
-
-
-       <!--- Name input  --->
-       <div>
-        <p-floatLabel variant="on">
-           <input pInputText id="on_label" formControlName="email"  autocomplete="off" />
-           <label for="on_label">Full Name</label>
-       </p-floatLabel>
-       <div class="error" *ngIf="SignupForm.get('email')?.errors?.['required']&& SignupForm.get('email')?.touched "><p>Email is required.</p></div>
-      </div>
-
-      
-
-       <!--- Password input  --->
-      <div>
-       <p-floatLabel variant="on">
-          <input pInputText id="on_label" formControlName="password"  autocomplete="off" />
-          <label for="on_label">Password</label>
-         </p-floatLabel>
-         <div class="error" *ngIf="SignupForm.get('password')?.errors?.['required']&& SignupForm.get('password')?.touched "><p>Password is required.</p></div>
-      </div>
-
-      <!--- Role input  --->
-      <div class="role" >
-        <p-selectButton 
-      [options]="stateOptions" 
-      [(ngModel)]="value" 
-      optionLabel="label" 
-      optionValue="value" />
-      </div>
- 
-       <!--- Login button  --->
-       <div>
-          <p-button styleClass="btn" [disabled]="!SignupForm.valid" (click)="onSignup()"  label="Sign up" />
-       </div>
- 
-       <span routerLink="/auth/login" class="forget-password">You already have account?</span>
-       
-    </div>
+  <div class="Login-Form" [formGroup]="SignupForm">
     
-   
- </div>
- 
+    <!--- Email input --->
+    <div>
+      <p-floatLabel variant="on">
+        <input pInputText id="email_label" formControlName="email" autocomplete="off" />
+        <label for="email_label">Email</label>
+      </p-floatLabel>
+      <div class="error" *ngIf="SignupForm.get('email')?.errors?.['required'] && SignupForm.get('email')?.touched">
+        <p>Email is required.</p>
+      </div>
+      <div class="error" *ngIf="SignupForm.get('email')?.errors?.['email'] && SignupForm.get('email')?.touched">
+        <p>Enter a valid email.</p>
+      </div>
+    </div>
+
+    <!--- Name input --->
+    <div>
+      <p-floatLabel variant="on">
+        <input pInputText id="name_label" formControlName="name" autocomplete="off" />
+        <label for="name_label">Full Name</label>
+      </p-floatLabel>
+      <div class="error" *ngIf="SignupForm.get('name')?.errors?.['required'] && SignupForm.get('name')?.touched">
+        <p>Name is required.</p>
+      </div>
+    </div>
+
+    <!--- Password input --->
+    <div>
+      <p-floatLabel variant="on">
+        <input type="password" pInputText id="password_label" formControlName="password" autocomplete="off" />
+        <label for="password_label">Password</label>
+      </p-floatLabel>
+      <div class="error" *ngIf="SignupForm.get('password')?.errors?.['required'] && SignupForm.get('password')?.touched">
+        <p>Password is required.</p>
+      </div>
+      <div class="error" *ngIf="SignupForm.get('password')?.errors?.['minlength'] && SignupForm.get('password')?.touched">
+        <p>Password must be at least 6 characters long.</p>
+      </div>
+    </div>
+
+    <!--- Phone input --->
+    <div>
+      <p-floatLabel variant="on">
+        <p-inputMask 
+          mask="999-999999" 
+          formControlName="phone" 
+          placeholder="212-999999">
+        </p-inputMask>
+        <label for="phone_label">Phone</label>
+      </p-floatLabel>
+      <div class="error" *ngIf="SignupForm.get('phone')?.errors?.['required'] && SignupForm.get('phone')?.touched">
+        <p>Phone number is required.</p>
+      </div>
+      <div class="error" *ngIf="SignupForm.get('phone')?.errors?.['pattern'] && SignupForm.get('phone')?.touched">
+        <p>Enter a valid phone number (e.g., 212-999999).</p>
+      </div>
+    </div>
+
+    <!--- Role input --->
+    <div class="role">
+      
+      <p-selectButton
+        [options]="stateOptions"
+        formControlName="role"
+        optionLabel="label"
+        optionValue="value">
+      </p-selectButton>
+      <div class="error" *ngIf="SignupForm.get('role')?.errors?.['required'] && SignupForm.get('role')?.touched">
+        <p>Role is required.</p>
+      </div>
+    </div>
+
+    <!--- Profile Image --->
+    <div>
+      <p-fileUpload 
+        mode="basic" 
+        chooseLabel="Profile Picture" 
+        chooseIcon="pi pi-upload"
+        name="file" 
+        accept="image/*" 
+        maxFileSize="1000000" 
+        (onSelect)="onFileSelect($event)" 
+        [auto]="false">
+      </p-fileUpload>
+      
+      <div class="error" *ngIf="fileError">
+        <p>{{ fileError }}</p>
+      </div>
+    </div>
+
+    <!--- Sign up button --->
+    <div>
+      <p-button styleClass="btn" [disabled]="!SignupForm.valid" (click)="onSignup()" label="Sign up"></p-button>
+    </div>
+
+    <span routerLink="/auth/login" class="forget-password">You already have an account?</span>
+
+  </div>
+</div>

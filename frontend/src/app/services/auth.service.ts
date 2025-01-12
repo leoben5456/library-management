@@ -92,6 +92,7 @@ export class AuthService {
 
   removeToken(): void {
     localStorage.removeItem('token');
+    localStorage.removeItem('refreshToken');
   }
 
   isTokenExpired(token: string): boolean {
@@ -117,7 +118,7 @@ export class AuthService {
     
   logout(): void {
     this.removeToken();
-    this.router.navigate(['/login']); 
+    this.router.navigate(['/auth/login']); 
   }
 
 }

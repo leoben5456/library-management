@@ -1,0 +1,86 @@
+
+.container-conent{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+   
+}
+
+
+
+.book{
+    margin-right: 40px;
+    margin-top: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    background-color: rgba(246,246,246,255);
+    border-radius: 2px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    cursor: pointer;
+}
+
+
+.container-conent .book .cover img{
+    width: 110px;
+    height: 150px;
+    border-radius: 5px;
+    
+}
+
+.info{
+    padding-left:20px;
+}
+
+.info p{
+    margin: 5px;
+    font-size: 14px;
+}
+
+.info .btn {
+    background-color: #8395e7;
+    border:none;
+    outline:none;
+    color: #f8f8f8;
+    padding: 10px 10px  10px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.info div{
+    padding-bottom:5px;
+}
+
+.title-container {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+}
+
+.paginator{
+    padding-top:20px;
+    padding-bottom:20px;
+}
+
+
+
+::ng-deep p-rating .p-rating-icon {
+    font-size: 12px !important;
+    margin-right: -1px !important;
+    color: #fbd500 !important;
+  }
+  
+  ::ng-deep p-rating .p-rating-icon.pi-star-fill {
+    color: #d7d3bb !important;
+  }
+  
+  ::ng-deep p-rating .p-rating-icon.pi-star {
+    color: #ccc !important;
+  }
+
+  ::ng-deep p-rating .p-rating-icon {
+    transform: scale(0.8) !important;
+    margin-right: -10px !important;
+    color: #fbd500 !important;
+}

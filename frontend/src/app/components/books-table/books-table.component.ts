@@ -1,9 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { BookDialogComponent } from '../book-dialog/book-dialog.component';
 import { Book, BookService } from '../../services/book.service';
-import { Table } from 'primeng/table';
+import { Table, TableLazyLoadEvent } from 'primeng/table';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { PaginatorState } from 'primeng/paginator';
+
+interface PageEvent {
+  first: number;
+  rows: number;
+  page: number;
+  pageCount: number;
+}
 
 @Component({
   selector: 'app-books-table',
@@ -18,6 +26,12 @@ export class BooksTableComponent implements OnInit {
   loading: boolean = true;
   activityValues: number[] = [0, 100];
   ref: DynamicDialogRef | undefined;
+  page: number = 0;
+
+  size: number = 5;
+
+  Books:any[] = [];
+  totalRecords: number = 0;
 
   constructor(private bookService: BookService,public dialogService: DialogService,private confirmationService: ConfirmationService, private messageService: MessageService) {}
 
@@ -27,6 +41,8 @@ export class BooksTableComponent implements OnInit {
       this.loading = false;
 
     });
+
+    this.loadBooks();
 
     this.categories = [
       { label: 'Category 1', value: 'Category 1' },
@@ -75,7 +91,23 @@ export class BooksTableComponent implements OnInit {
     const value = (event.target as HTMLInputElement).value;
     table.filterGlobal(value, 'contains');
   }
-    
+  
+  loadBooks():void{
+    this.bookService.getAllBooks(this.page,this.size).subscribe((data:any)=>{
+      this.Books=data.content;
+      this.totalRecords = data.totalElements;
+      console.log(this.Books);
+    })
+  }
+
+  onPageChange(event: TableLazyLoadEvent) {
+    this.page = event.first ? event.first / (event.rows || 1) : 0;
+    this.size = event.rows || 5;
+  
+    // Fetch the data for the new page
+    this.loadBooks();
+  }
+  
 }
   
 

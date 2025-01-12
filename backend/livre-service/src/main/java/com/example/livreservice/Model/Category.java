@@ -25,7 +25,7 @@ public class Category {
 
     public Category(String name) {
         this.name = name;
-        this.nbLivres = 0; // Initialize with 0
+        this.nbLivres = 0;
     }
     // Increment the number of books in this category
     public void incrementNbLivres() {

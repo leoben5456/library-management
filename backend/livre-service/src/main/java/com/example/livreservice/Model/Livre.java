@@ -1,6 +1,7 @@
 package com.example.livreservice.Model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,18 +22,20 @@ public class Livre {
     public String image;
     public String datePublication;
     public String langue;
-    public Integer nbPages;
-    public Double prix;
     private Boolean isReserved;
     public Integer quantite;
+
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     @JsonBackReference
     private Category category;
+
     @Transient
     private String categoryName;
     @Enumerated(EnumType.STRING)
     private Status status;
-
+    private String coverPath;
+    private String description;
+    private float rating;
 
 }
