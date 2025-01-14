@@ -21,6 +21,9 @@ public class Reservation {
     private String titreLiver;
     private String emailuser;
     private int livreId;
+    private boolean isReturned=false;
+    private LocalDate dateReturned;
+    private double penalty=0.0;
 
 }
 

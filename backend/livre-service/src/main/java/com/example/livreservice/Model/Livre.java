@@ -19,10 +19,10 @@ public class Livre {
     public String titre;
     public String auteur;
     public String genre;
-    public String image;
-    public String datePublication;
+    public String image="";
+    public String datePublication="";
     public String langue;
-    private Boolean isReserved;
+    private Boolean isReserved=false;
     public Integer quantite;
 
     @ManyToOne
@@ -33,7 +33,7 @@ public class Livre {
     @Transient
     private String categoryName;
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private Status status=Status.AVAILABLE;
     private String coverPath;
     private String description;
     private float rating;

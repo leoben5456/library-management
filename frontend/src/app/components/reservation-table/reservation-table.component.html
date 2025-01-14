@@ -5,15 +5,17 @@
   <div class="card">
     <p-table
       #dt
-      [value]="books"
+      [value]="Reservations"
       dataKey="id"
-      [rows]="5"
-      [rowsPerPageOptions]="[10, 25, 50]"
+      [rows]="size"
+      [totalRecords]="totalRecords"
+      [rowsPerPageOptions]="[3, 6, 12]"
       [loading]="loading"
       [paginator]="true"
-      [globalFilterFields]="['name', 'category', 'author']"
+      [globalFilterFields]="['id', 'dateExpiration', 'dateReservation']"
       selectionMode="multiple"
       [(selection)]="selectedBooks"
+
     >
       <!-- Caption (Manage Books and Search Bar) -->
       <ng-template pTemplate="caption">
@@ -38,21 +40,21 @@
           <th style="width:5%">
             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
           </th>
-          <th style="width:25%">Name</th>
-          <th style="width:25%">Category</th>
-          <th style="width:25%">Author</th>
+          <th style="width:25%">Reservation Id</th>
+          <th style="width:25%">Date Reservation</th>
+          <th style="width:25%">Date Expiration</th>
           <th style="width:25%">Action</th>
         </tr>
       </ng-template>
 
-      <ng-template pTemplate="body" let-book>
+      <ng-template pTemplate="body" let-reservation>
         <tr style="cursor: pointer;">
           <td>
-            <p-tableCheckbox [value]="book"></p-tableCheckbox>
+            <p-tableCheckbox [value]="reservation"></p-tableCheckbox>
           </td>
-          <td>{{ book.name }}</td>
-          <td>{{ book.category }}</td>
-          <td>{{ book.author }}</td>
+          <td>{{ reservation.id }}</td>
+          <td>{{ reservation.dateExpiration}}</td>
+          <td>{{ reservation.dateReservation}}</td>
           <td>
             <p-button
             icon="pi pi-pencil"

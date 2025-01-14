@@ -13,14 +13,15 @@
             </div>
 
         </div>
-        <div class="paginator">
-            <p-paginator 
-        (onPageChange)="onPageChange($event)" 
-        [first]="page"
-        [rows]="size" 
-        [totalRecords]="120" 
-        [rowsPerPageOptions]="[3, 9, 12]" />
-        </div>
+        
+    </div>
+    <div class="paginator">
+        <p-paginator 
+    (onPageChange)="onPageChange($event)" 
+    [first]="page"
+    [rows]="size" 
+    [totalRecords]="totalRecords" 
+    [rowsPerPageOptions]="[3, 9, 12]" />
     </div>
 
 </div>

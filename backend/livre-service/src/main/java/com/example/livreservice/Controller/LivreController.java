@@ -5,20 +5,26 @@ import com.example.livreservice.Model.Livre;
 import com.example.livreservice.Model.Status;
 import com.example.livreservice.Repository.LivreRepository;
 import com.example.livreservice.Service.LivreService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 public class LivreController {
@@ -38,18 +44,55 @@ public class LivreController {
         return "Welcome to Livre Service";
     }
 
-    @PostMapping("/livre/inscription")
-    public ResponseEntity<String> inscription(@Valid @RequestBody Livre livre) {
+
+    // the folder where livre images will be stored
+    private static final String LIVRE_UPLOAD_DIR = "/home/naoufal-ben/IdeaProjects/library-management/backend/uploads/book-cover/";
+
+
+    @PostMapping(value = "/livre/inscription", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+    public ResponseEntity<String> inscription(
+            @RequestPart("livre") String livreJson,
+            @RequestPart(value = "file", required = false) MultipartFile file
+    ) {
         try {
-            System.out.println("livre before saving: " + livre);
+            // Parse the Livre JSON
+            ObjectMapper objectMapper = new ObjectMapper();
+            Livre livre = objectMapper.readValue(livreJson, Livre.class);
+
+            // If a file is included, handle the upload
+            if (file != null && !file.isEmpty()) {
+                // Generate a unique filename to prevent conflicts
+                String originalFilename = file.getOriginalFilename();
+                String uniqueFilename = UUID.randomUUID() + "_" + originalFilename;
+
+                // Ensure the upload directory exists
+                Path uploadPath = Paths.get(LIVRE_UPLOAD_DIR);
+                if (!Files.exists(uploadPath)) {
+                    Files.createDirectories(uploadPath);
+                }
+
+                // Build the target location
+                Path targetLocation = uploadPath.resolve(uniqueFilename);
+
+                // Copy the file to the target location
+                Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+
+                // Set the path or URL in the Livre entity (storing only the filename)
+                livre.setCoverPath(uniqueFilename);
+            }
+
+            // Save the Livre
             livreService.saveLivre(livre);
-            return ResponseEntity.status(HttpStatus.CREATED).body("livre registered successfully!");
-        } catch (IllegalArgumentException e) {
+
+            return ResponseEntity.status(HttpStatus.CREATED).body("Livre registered successfully!");
+        } catch (IOException e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid input: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Could not parse Livre data: " + e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error during registration: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error during registration: " + e.getMessage());
         }
     }
 
@@ -159,6 +202,7 @@ public class LivreController {
             this.message = message;
         }
     }
+
     @GetMapping("/livres")
     public ResponseEntity<Object> getAllLivres(Pageable pageable) {
         try {
@@ -178,6 +222,7 @@ public class LivreController {
         Livre livre = livreService.getLivreByTitre(titre);
         return ResponseEntity.ok(livre);
     }
+
     @GetMapping("/livres/auteur")
     public ResponseEntity<List<Livre>> getLivresByAuteur(@RequestParam String auteur) {
         List<Livre> livres = livreService.getLivresByAuteur(auteur);

@@ -33,6 +33,9 @@ import { DialogModule } from '@angular/cdk/dialog';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ReservationTableComponent } from '../../components/reservation-table/reservation-table.component';
 import { AdminSideNavComponent } from '../../components/admin-side-nav/admin-side-nav.component';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { ReactiveFormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [
     AdminLayoutComponent,
@@ -65,7 +68,9 @@ import { AdminSideNavComponent } from '../../components/admin-side-nav/admin-sid
     NgApexchartsModule,
     DialogModule,
     DynamicDialogModule,
-    FileUploadModule
+    FileUploadModule,
+    InputNumberModule,
+    ReactiveFormsModule
 
 
   ],

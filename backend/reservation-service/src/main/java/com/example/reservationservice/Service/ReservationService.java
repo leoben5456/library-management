@@ -7,11 +7,12 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 @Service
 public interface ReservationService {
     Reservation getReservation(int id);
-    List<Reservation> getAllReservations();
+    Page<Reservation> getAllReservations(Pageable pageable);
     void deleteReservation(int id);
     void updateReservationById(int id, Reservation reservation);
     Livre getLivreById(int id, String token);

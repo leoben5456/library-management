@@ -19,10 +19,11 @@ export class DiscoverComponent implements OnInit {
 
   page: number = 0;
 
-  size: number = 3;
+  size: number = 9;
 
   Books:any[] = [];
 
+  totalRecords: number = 0;
 
 
   constructor(private bookService: BookService) { }
@@ -100,6 +101,7 @@ export class DiscoverComponent implements OnInit {
   loadBooks():void{
     this.bookService.getAllBooks(this.page,this.size).subscribe((data:any)=>{
       this.Books=data.content;
+      this.totalRecords = data.totalElements;
       console.log(this.Books);
     })
   }

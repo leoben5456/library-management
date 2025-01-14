@@ -18,52 +18,7 @@ export class BookService {
 
   constructor(private http:HttpClient) {}
 
-  getBooks(): Promise<Book[]> {
-    return Promise.resolve([
-      {
-        checkbox: false,
-        id: '1',
-        name: 'Book 1',
-        category: 'Fiction',
-        author: 'Author 1'
-      },
-      {
-        checkbox: false,
-        id: '2',
-        name: 'Book 2',
-        category: 'Non-Fiction',
-        author: 'Author 2'
-      },
-      {
-        checkbox: false,
-        id: '3',
-        name: 'Book 3',
-        category: 'Science',
-        author: 'Author 3'
-      },
-      {
-        checkbox: false,
-        id: '4',
-        name: 'Book 4',
-        category: 'History',
-        author: 'Author 4'
-      },
-      {
-        checkbox: false,
-        id: '5',
-        name: 'Book 5',
-        category: 'Biography',
-        author: 'Author 5'
-      },
-      {
-        checkbox: false,
-        id: '6',
-        name: 'Book 6',
-        category: 'Biography',
-        author: 'Author 6'
-      }
-    ]);
-  }
+  
 
   
    getAllBooks(page:number,size:number):Observable<any>{
@@ -76,6 +31,25 @@ export class BookService {
       
       return this.http.get(url, { params });
    }
+
+
+   CreateNewBook(book: any, photo?: File): Observable<string> {  
+    const formData: FormData = new FormData();
+    const apiUrl = environment.CreateBookApi;
+
+    formData.append('livre', JSON.stringify(book));
+    if (photo) {
+      formData.append('file', photo, photo.name);
+    }
+
+    return this.http.post(apiUrl, formData, { responseType: 'text' });
+  }
+
+
+  DeleteBook(id:Number):Observable<any>{
+    const url=environment.DeleteBookApi+id
+    return this.http.delete(url)
+  }
   
 
 }

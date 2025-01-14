@@ -36,21 +36,11 @@ export class BooksTableComponent implements OnInit {
   constructor(private bookService: BookService,public dialogService: DialogService,private confirmationService: ConfirmationService, private messageService: MessageService) {}
 
   ngOnInit() {
-    this.bookService.getBooks().then((books) => {
-      this.books = books;
-      this.loading = false;
-
-    });
-
-    this.loadBooks();
-
-    this.categories = [
-      { label: 'Category 1', value: 'Category 1' },
-      { label: 'Category 2', value: 'Category 2' },
-      { label: 'Category 3', value: 'Category 3' },
-    ];
-
     
+    this.loadBooks();
+    this.loading = false;
+    
+  
   }
 
   clear(table: Table) {
@@ -68,10 +58,10 @@ export class BooksTableComponent implements OnInit {
     );
   }
 
-  deleteSelected(event: Event) {  
+  deleteSelected(event: Event,id:Number) {  
       this.confirmationService.confirm({
           target: event.target as EventTarget,
-          message: 'Do you want to delete this record?',
+          message: 'Do you want to delete this Book?',
           header: 'Delete Confirmation',
           icon: 'pi pi-info-circle',
           acceptButtonStyleClass:"p-button-danger p-button-text",
@@ -80,13 +70,16 @@ export class BooksTableComponent implements OnInit {
           rejectIcon:"none",
 
           accept: () => {
-              this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' });
+              this.DeleteBook(id);
+              this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Book deleted' });
+              this.Books = this.Books.filter(book => book.id !== id); 
+              this.totalRecords--;
           },
           reject: () => {
-              this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
           }
       });
   }
+  
   onGlobalFilter(event: Event, table: Table) {
     const value = (event.target as HTMLInputElement).value;
     table.filterGlobal(value, 'contains');
@@ -104,9 +97,18 @@ export class BooksTableComponent implements OnInit {
     this.page = event.first ? event.first / (event.rows || 1) : 0;
     this.size = event.rows || 5;
   
-    // Fetch the data for the new page
     this.loadBooks();
   }
+
+
+
+  DeleteBook(id:Number){
+    this.bookService.DeleteBook(id).subscribe((data:any)=>{})
+    
+  }
+
+  
+
   
 }
   

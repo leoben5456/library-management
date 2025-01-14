@@ -25,6 +25,7 @@ export class RegistrationService {
       catchError(this.handleError)
     );
   }
+  
 
 
   private handleError(error: HttpErrorResponse) {

@@ -57,6 +57,7 @@ public class LivreServiceImpl implements LivreService {
             livre.setCategory(category);
             livre.setCategoryName(category.getName());
             livre.setQuantite(1); // Set initial quantity to 1
+            livre.setGenre(category.getName());
 
             // Save the new book
             livreRepository.save(livre);

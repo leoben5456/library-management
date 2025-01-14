@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { Table } from 'primeng/table';
+import { Table, TableLazyLoadEvent } from 'primeng/table';
 import { Book, BookService } from '../../services/book.service';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { BookDialogComponent } from '../book-dialog/book-dialog.component';
+import { ReservationService } from '../../services/reservation.service';
 
 @Component({
   selector: 'app-reservation-table',
@@ -17,35 +18,40 @@ books!: Book[];
   loading: boolean = true;
   activityValues: number[] = [0, 100];
   ref: DynamicDialogRef | undefined;
+  Reservations: any[] = [];
+  page: number = 0;
+  size: number = 6;
+  totalRecords: number = 0;
 
-  constructor(private bookService: BookService) {}
+  constructor(private bookService: BookService,private reservationService:ReservationService) {}
 
   ngOnInit() {
-    this.bookService.getBooks().then((books) => {
-      this.books = books;
-      this.loading = false;
-
-    });
-
-    this.categories = [
-      { label: 'Category 1', value: 'Category 1' },
-      { label: 'Category 2', value: 'Category 2' },
-      { label: 'Category 3', value: 'Category 3' },
-    ];
-
-
+    
+    this.loadReservations();
+    this.loading = false;
   }
-
-
-
-
-
-
 
 
   onGlobalFilter(event: Event, table: Table) {
     const value = (event.target as HTMLInputElement).value;
     table.filterGlobal(value, 'contains');
   }
+
+
+  loadReservations() {
+    this.reservationService.getAllReservations(this.page,this.size).subscribe((reservations) => {
+      this.Reservations = reservations.content;
+      this.totalRecords=reservations.totalElements;
+      console.log(reservations.content);
+    });
+  }
+
+  onPageChange(event: TableLazyLoadEvent) {
+     this.page = event.first ? event.first / (event.rows || 1) : 0;
+     this.size = event.rows || 5;
+   
+     this.loadReservations();
+   }
+
 
 }

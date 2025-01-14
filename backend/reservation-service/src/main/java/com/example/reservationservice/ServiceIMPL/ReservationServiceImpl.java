@@ -14,7 +14,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 @Service
 public class ReservationServiceImpl implements ReservationService {
 
@@ -53,8 +54,9 @@ public class ReservationServiceImpl implements ReservationService {
     public Reservation getReservation(int id) {
         return reservationRepository.findById(id).orElse(null);
     }
-    public List<Reservation> getAllReservations() {
-        return reservationRepository.findAll();
+
+    public Page<Reservation> getAllReservations(Pageable pageable) {
+        return reservationRepository.findAll(pageable);
     }
 
     @Override

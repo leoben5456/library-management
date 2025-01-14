@@ -28,7 +28,9 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
         // Bypass filter for auth-service and other specific paths
         if (path.startsWith("/auth-service") ||
                 path.equals("/user-service/verify-credentials") ||
-                path.equals("/user-service/user/inscription")) {
+                path.equals("/user-service/user/inscription") ||
+                path.startsWith("/livre-service/uploads/book-cover")
+        ) {
             return chain.filter(exchange);
         }
 

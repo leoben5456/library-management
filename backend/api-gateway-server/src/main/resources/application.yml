@@ -28,6 +28,10 @@ spring:
           predicates:
             - Path=/admin-service/**
 
+        - id: livre-service
+          uri: lb://livre-service
+          predicates:
+                - Path=/livre-service/**
 
 
 
@@ -37,6 +41,7 @@ spring:
           uri: lb://user-service
           predicates:
             - Path=/user-service/**
+
         - id: statistics-service
           uri: lb://statistics-service
           predicates:

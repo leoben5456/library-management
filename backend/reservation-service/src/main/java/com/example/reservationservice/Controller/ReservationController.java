@@ -4,11 +4,18 @@ import com.example.livreservice.Model.Livre;
 import com.example.livreservice.Model.Status;
 import com.example.reservationservice.Model.Reservation;
 import com.example.reservationservice.Service.ReservationService;
+import com.example.reservationservice.ServiceIMPL.JwtUtil;
+import io.jsonwebtoken.Claims;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpHeaders;
+
+import java.time.LocalDate;
 
 @RestController
 
@@ -20,6 +27,16 @@ public class ReservationController {
         this.reservationService = reservationService;
 
     }
+
+
+
+    @GetMapping("/welcome")
+    public  ResponseEntity<String> test(){
+
+
+        return ResponseEntity.ok("Hello from reservation service");
+    }
+
     @PostMapping("/reservation/creation/{livreId}")
     public ResponseEntity<String> createReservation(@PathVariable int livreId, @Valid @RequestBody Reservation reservation, @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
         try {
@@ -46,7 +63,10 @@ public class ReservationController {
             reservationService.updateLivreStatus(livreId, livre.getStatus(), token);
 
             // Save the reservation
+            Claims claims = JwtUtil.decodeJwt(token);
+            reservation.setDateReservation(LocalDate.now());
             reservation.setLivreId(livreId);
+            reservation.setEmailuser(claims.get("sub").toString());
             reservationService.saveReservation(reservation, token);
 
             return ResponseEntity.status(HttpStatus.CREATED).body("Reservation created successfully!");
@@ -58,6 +78,7 @@ public class ReservationController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error during creation: " + e.getMessage());
         }
     }
+
     @GetMapping("/test/{id}")
     public ResponseEntity<Livre> test(@PathVariable int id, @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
         Livre livre = reservationService.getLivreById(id, token);
@@ -129,19 +150,23 @@ public class ReservationController {
             this.message = message;
         }
     }
+
+
     @GetMapping("/reservations")
-    public ResponseEntity<Object> getAllReservations() {
+    public ResponseEntity<Object> getAllReservations(Pageable pageable) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(reservationService.getAllReservations());
+            Page<Reservation> reservations = reservationService.getAllReservations(pageable);
+            return ResponseEntity.status(HttpStatus.OK).body(reservations);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid request parameters.");
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while fetching reservations.");
         }
-
     }
+
+
     @DeleteMapping("/deleteReservation/{id}")
     public ResponseEntity<String> deleteReservation(@PathVariable int id) {
         try {
@@ -169,6 +194,11 @@ public class ReservationController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error during update: " + e.getMessage());
         }
     }
+
+
+
+
+
 
 }
 

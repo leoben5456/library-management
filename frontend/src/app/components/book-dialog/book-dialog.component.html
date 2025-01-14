@@ -1,57 +1,120 @@
-<div class="container">
-   <div class="content">
-    <label for="name">Book Name</label>
-    <input class="name-field" type="text" pInputText [(ngModel)]="value" />
+<form [formGroup]="bookForm" (ngSubmit)="save()">
+  <div class="container">
+    <div class="content">
 
-    <label for="name">Author Name</label>
-    <input class="author-field" type="text" pInputText [(ngModel)]="value" />
+      <label for="bookName">Book Name</label>
+      <input 
+        class="name-field" 
+        type="text" 
+        pInputText 
+        formControlName="titre" 
+        id="titre"
+      />
 
-    <label for="name">Description</label>
-    <textarea rows="5"cols="30" pInputTextarea [(ngModel)]="value"></textarea>
-    
-    
-    <div class="form-row">
-      <div class="form-group">
-        <label for="language">Language</label>
-        <p-dropdown 
-          [options]="languages" 
-          [(ngModel)]="selectedLanguage" 
-          optionLabel="name" 
-          placeholder="Book language">
-        </p-dropdown>
+      <label for="authorName">Author Name</label>
+      <input 
+        class="author-field" 
+        type="text" 
+        pInputText 
+        formControlName="auteur" 
+        id="authorName"
+      />
+      <div *ngIf="bookForm.get('authorName')?.touched && bookForm.get('authorName')?.invalid" class="error">
+        <small>Author Name is required</small>
       </div>
-    
-      <div class="form-group">
-        <label for="quantity">Category</label>
-        <p-dropdown 
-          [options]="languages" 
-          [(ngModel)]="selectedLanguage" 
-          optionLabel="name" 
-          placeholder="Book Category">
-        </p-dropdown>
+
+      <label for="description">Description</label>
+      <textarea
+        rows="5"
+        cols="30"
+        pInputTextarea
+        formControlName="description"
+        id="description"
+      ></textarea>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="language">Language</label>
+          <input
+            class="name-field"
+            type="text"
+            pInputText
+            formControlName="langue"
+            id="language"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="category">Category</label>
+          <input
+            class="name-field"
+            type="text"
+            pInputText
+            formControlName="category"
+            id="category"
+          />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="quantity">Quantity</label>
+          <input
+            class="name-field"
+            type="text"
+            pInputText
+            formControlName="quantite"
+            id="quantity"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="rating">Rating</label>
+          <input
+            class="name-field"
+            type="text"
+            pInputText
+            formControlName="rating"
+            id="rating"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="cover">Cover</label>
+          <p-fileUpload
+            mode="basic"
+            chooseLabel="Choose"
+            chooseIcon="pi pi-upload"
+            name="cover"
+            accept="image/*"
+            maxFileSize="1000000"
+            (onSelect)="onFileSelect($event)" 
+          >
+          </p-fileUpload>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p-button 
+          (onClick)="close()" 
+          label="Cancel" 
+          icon="pi pi-times" 
+          [text]="true"  
+          severity="info" 
+          size="small"
+        >
+        </p-button>
+
+        <p-button 
+          type="submit"
+          label="Save" 
+          icon="pi pi-check" 
+          [text]="true"  
+          severity="info" 
+          size="small"
+        >
+        </p-button>
       </div>
     </div>
-
-    <div class="form-row">
-      <div class="cover">
-        <label for="cover">Book Conver</label>
-      <p-fileUpload 
-      mode="basic" 
-      chooseLabel="Choose" 
-      chooseIcon="pi pi-upload"
-      name="demo[]" 
-      url="https://www.primefaces.org/cdn/api/upload.php" 
-      accept="image/*" 
-      maxFileSize="1000000" 
-       />
-      </div>
-    </div>
-
-    <div class="footer">
-      <p-button (onClick)="close()" label="Cancel" icon="pi pi-times" [text]="true"  severity="info" size="small" />  
-      <p-button (onClick)="save()" label="Save" icon="pi pi-check" [text]="true"  severity="info" size="small" /> 
-
-    </div>
-    
-    
-</div>
+  </div>
+</form>

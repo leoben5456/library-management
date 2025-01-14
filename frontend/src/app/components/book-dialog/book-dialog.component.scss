@@ -25,6 +25,7 @@
     display: block;
     margin-bottom: 5px;
     color: #333;
+    font-size: 15px;
 }
 
 .content .name-field,
@@ -49,6 +50,10 @@
     padding-top: 10px;
 }
 
+.form-group{
+    padding-right:10px;
+}
+
 .form-row .cover{
    
     margin-bottom: 10px;
@@ -60,3 +65,6 @@
     bottom:10px;
     right: 10px;
 }
+
+
+
