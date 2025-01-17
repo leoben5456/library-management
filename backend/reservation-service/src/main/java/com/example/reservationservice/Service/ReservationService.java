@@ -18,6 +18,8 @@ public interface ReservationService {
     Livre getLivreById(int id, String token);
    // boolean isLivreAvailable(int livreId, String token);
     void saveReservation(Reservation reservation, String token);
-     boolean checkLivreAvailability(int id, String token);
+    boolean checkLivreAvailability(int id, String token);
     void updateLivreStatus(int livreId, Status status, String token);
+
+    Page<Reservation> getReservationsByEmail(String email, Pageable pageable);
 }

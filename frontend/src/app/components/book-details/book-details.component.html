@@ -1,0 +1,49 @@
+<div class="container">
+    <div class="Description">
+        {{book.description}}
+    </div>
+
+    <div class="dates">
+        <div class="reservation-date">
+
+            <span>Reservation Date</span>
+            <p-calendar 
+                [(ngModel)]="reservationDate" 
+                [iconDisplay]="'input'" 
+                [showIcon]="true" 
+                [disabled]="true"
+                inputId="icondisplay" />
+        </div>
+        <div class="return-date">
+            <span>Return Date</span>
+            <p-calendar 
+                [(ngModel)]="reservationDate" 
+                [iconDisplay]="'input'" 
+                [showIcon]="true" 
+                [disabled]="true"
+                inputId="icondisplay" />
+        </div>
+    </div>
+
+    <div class="actions">
+        <div>
+            <p-button
+          label="Add Wishlist" 
+          icon="pi pi-plus" 
+          [text]="true"  
+          severity="info" 
+          size="small"
+          (onClick)="addBookToWishlist(book.id)"
+        >
+        </p-button>
+        </div>
+
+
+        <div>
+            <p-button label="Reserve" severity="info" (onClick)="ReserverBook()"  size="small" icon="pi pi-check" size="small" />
+        </div>
+        
+        
+    </div>
+
+</div>

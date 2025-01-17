@@ -8,8 +8,11 @@ import { TruncatePipe } from '../../core/pipes/truncate.pipe';
 import { RatingModule } from 'primeng/rating';
 import { DiscoverComponent } from '../../components/discover/discover.component';
 import { PaginatorModule } from 'primeng/paginator';
-
-
+import { TagModule } from 'primeng/tag';
+import { BookDetailsComponent } from '../../components/book-details/book-details.component';
+import { UserReservationsComponent } from '../../components/user-reservations/user-reservations.component';
+import { UserWishlistComponent } from '../../components/user-wishlist/user-wishlist.component';
+import { CalendarModule } from 'primeng/calendar';
 @NgModule({
   declarations: [
     UserLayoutComponent,
@@ -17,6 +20,11 @@ import { PaginatorModule } from 'primeng/paginator';
     MainPageComponent,
     TruncatePipe,
     DiscoverComponent,
+    BookDetailsComponent,
+    UserReservationsComponent,
+    UserWishlistComponent,
+
+    
     
     
     
@@ -26,7 +34,9 @@ import { PaginatorModule } from 'primeng/paginator';
     UserLayoutRoutingModule,
     SharedModule,
     RatingModule,
-    PaginatorModule 
+    PaginatorModule,
+    TagModule,
+    CalendarModule
     
   ]
 })

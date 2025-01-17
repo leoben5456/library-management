@@ -108,6 +108,7 @@ public class ReservationController {
                     .body(new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error", "An unexpected error occurred. Please try again later."));
         }
     }
+
     @GetMapping("/reservation/check-livre-availability/{id}")
     public ResponseEntity<Boolean> checkLivreAvailability(@PathVariable int id, @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
         boolean isAvailable = reservationService.checkLivreAvailability(id, token);
@@ -196,7 +197,21 @@ public class ReservationController {
     }
 
 
-
+    @GetMapping("/reservation/user")
+    public ResponseEntity<Object> getReservationsByUser(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, Pageable pageable) {
+        try {
+            Claims claims = JwtUtil.decodeJwt(token);
+            String email = claims.get("sub").toString();
+            Page<Reservation> reservations = reservationService.getReservationsByEmail(email, pageable);
+            return ResponseEntity.status(HttpStatus.OK).body(reservations);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid request parameters.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while fetching reservations.");
+        }
+    }
 
 
 

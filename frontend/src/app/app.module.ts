@@ -20,12 +20,15 @@ import { SigninComponent } from './components/signin/signin.component';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { FormsModule } from '@angular/forms';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SigninComponent,
+   
+    
     
     
     
@@ -55,7 +58,7 @@ import { authInterceptor } from './core/interceptors/auth.interceptor';
     FormsModule,
     
   ],
-  providers: [{provide: HTTP_INTERCEPTORS,useClass: authInterceptor,multi: true,},],
+  providers: [{provide: HTTP_INTERCEPTORS,useClass: authInterceptor,multi: true,},DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

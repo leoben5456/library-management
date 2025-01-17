@@ -4,10 +4,16 @@ import com.example.livreservice.Model.Category;
 import com.example.livreservice.Model.Livre;
 import com.example.livreservice.Model.Status;
 import com.example.livreservice.Repository.LivreRepository;
+import com.example.livreservice.Repository.WishlistRepositoy;
 import com.example.livreservice.Service.LivreService;
+import com.example.livreservice.Service.WishlistService;
+import com.example.livreservice.ServiceImpl.JwtUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -32,12 +38,13 @@ public class LivreController {
     @Autowired
     private LivreRepository livreRepository;
 
+    private  final WishlistService wishlistService;
 
-
-
-    public LivreController(LivreService livreService, LivreRepository livreRepository) {
+    public LivreController(LivreService livreService, LivreRepository livreRepository, WishlistRepositoy wishlistRepositoy, WishlistService wishlistService) {
         this.livreService = livreService;
 
+
+        this.wishlistService = wishlistService;
     }
     @GetMapping("/welcome")
     public String welcome() {
@@ -247,6 +254,48 @@ public class LivreController {
         List<Livre> livres = livreService.getLivresByCategory(category);
         return ResponseEntity.ok(livres);
     }
+
+
+
+    @PostMapping("livre/add/to-wishlist/{id}")
+    public ResponseEntity<String> addBookToWishlist(@PathVariable int id, @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+        try {
+            Claims claims = JwtUtil.decodeJwt(token);
+            String email = claims.get("sub").toString();
+             wishlistService.addBookToWishlist(id,email);
+            return ResponseEntity.status(HttpStatus.OK).body("Book added to wishlist successfully!");
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid input: " + e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error during addition: " + e.getMessage());
+        }
+    }
+
+
+    @GetMapping("user/wishlist")
+    public ResponseEntity<List<Livre>>  userBooksFromWishlist(@RequestHeader(HttpHeaders.AUTHORIZATION) String token){
+        try {
+            Claims claims = JwtUtil.decodeJwt(token);
+
+            String email = claims.get("sub").toString();
+
+            List<Livre> livres = wishlistService.getBooksFromWishlist(email);
+
+            return ResponseEntity.ok(livres);
+        } catch (JwtException e) {
+
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Collections.emptyList());
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.emptyList());
+        }
+    }
+
 }
+
 
 

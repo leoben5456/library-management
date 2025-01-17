@@ -3,6 +3,7 @@ package com.example.reservationservice.Repository;
 import com.example.reservationservice.Model.Reservation;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -17,5 +18,9 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
     void deleteById(int id);
     Page<Reservation> findAll(Pageable pageable);
     List<Reservation> findAllByIsReturnedFalseAndDateExpirationBefore(LocalDate date);
+
+    @Query("SELECT r FROM Reservation r WHERE r.emailuser = :email")
+    Page<Reservation> getReservationsByEmail(String email, Pageable pageable);
+
 
 }

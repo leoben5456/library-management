@@ -50,6 +50,12 @@ export class BookService {
     const url=environment.DeleteBookApi+id
     return this.http.delete(url)
   }
+
+
+  CheckBookAvailability(id:Number):Observable<any>{
+    const url=environment.CheckBookAvailabilityApi+id
+    return this.http.get(url)
+  }
   
 
 }

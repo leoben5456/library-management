@@ -19,5 +19,15 @@ export const environment = {
 
     //Get All Books Reservations Endpoint
     AllBooksReservationsApi:'http://localhost:8080/reservation-service/reservations',
+
+    //Check Book availability Endpoint
+    CheckBookAvailabilityApi:'http://localhost:8080/reservation-service/reservation/check-livre-availability/',
+
+    //Add Book to the wishlist Endpoint
+    AddBookToWishlistApi:'http://localhost:8080/livre-service/livre/add/to-wishlist/',
+
+    // Get user books in the wishlist Endpoint
+    UserWishlistApi:'http://localhost:8080/livre-service/user/wishlist',
+
     
 };

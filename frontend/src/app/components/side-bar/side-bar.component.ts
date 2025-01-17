@@ -11,18 +11,17 @@ export class SideBarComponent {
     constructor(private confirmationService: ConfirmationService,private authService :AuthService ) {}
 
     confirm1(event: Event) {
-      console.log(event);
-
-      this.authService.logout();
+  
       this.confirmationService.confirm({
           target: event.target as EventTarget,
-          message: 'Are you sure that you want to proceed?',
-          header: 'Confirmation',
-          icon: 'pi pi-exclamation-triangle',
+          message: 'Are you sure that you want to log out?',
+          header: 'Log out',
+          icon: 'pi pi-sign-out',
           acceptIcon:"none",
           rejectIcon:"none",
           rejectButtonStyleClass:"p-button-text",
           accept: () => {
+            this.authService.logout();
          },
           reject: () => {
           }

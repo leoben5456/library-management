@@ -113,5 +113,10 @@ public class ReservationServiceImpl implements ReservationService {
                 .block(); // Blocking for simplicity, consider reactive approach
     }
 
+    @Override
+    public Page<Reservation> getReservationsByEmail(String email, Pageable pageable) {
+        return reservationRepository.getReservationsByEmail(email, pageable);
+    }
+
 
 }

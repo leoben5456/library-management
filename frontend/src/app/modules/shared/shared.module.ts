@@ -11,6 +11,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { FileUploadModule } from 'primeng/fileupload';
 import { InputMaskModule } from 'primeng/inputmask';
+import { ToastModule } from 'primeng/toast';
 @NgModule({
   declarations: [TopBarComponent],
   exports: [
@@ -23,7 +24,8 @@ import { InputMaskModule } from 'primeng/inputmask';
     SkeletonModule,
     ConfirmDialogModule,
     FileUploadModule,
-    InputMaskModule
+    InputMaskModule,
+    ToastModule
   ],
 
   
@@ -36,7 +38,8 @@ import { InputMaskModule } from 'primeng/inputmask';
     SkeletonModule,
     ConfirmDialogModule,
     FileUploadModule,
-    InputMaskModule
+    InputMaskModule,
+    ToastModule
   ],
   providers: [MessageService,DialogService,MessageService,ConfirmationService],
 })

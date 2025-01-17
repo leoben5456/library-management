@@ -13,16 +13,16 @@ export class AdminSideNavComponent {
   constructor(private confirmationService: ConfirmationService,private authService:AuthService){}
 
   confirm(event: Event) {
-    this.authService.logout();
     this.confirmationService.confirm({
         target: event.target as EventTarget,
-        message: 'Are you sure that you want to proceed?',
-        header: 'Confirmation',
-        icon: 'pi pi-exclamation-triangle',
+        message: 'Are you sure that you want to logout?',
+        header: 'Logout',
+        icon: 'pi pi-sign-out',
         acceptIcon:"none",
         rejectIcon:"none",
         rejectButtonStyleClass:"p-button-text",
         accept: () => {
+          this.authService.logout();
         },
         reject: () => {
 

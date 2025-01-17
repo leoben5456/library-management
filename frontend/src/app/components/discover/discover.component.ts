@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PaginatorState } from 'primeng/paginator';
 import { BookService } from '../../services/book.service';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { BookDetailsComponent } from '../book-details/book-details.component';
+import { WishlistService } from '../../services/wishlist.service';
 
 interface PageEvent {
   first: number;
@@ -24,9 +27,10 @@ export class DiscoverComponent implements OnInit {
   Books:any[] = [];
 
   totalRecords: number = 0;
+ 
+  ref: DynamicDialogRef | undefined;
 
-
-  constructor(private bookService: BookService) { }
+  constructor(private bookService: BookService,private dialogService:DialogService) { }
 
   ngOnInit(): void {
     this.loadBooks();
@@ -34,68 +38,12 @@ export class DiscoverComponent implements OnInit {
 
   onPageChange(event: PaginatorState) {
     this.page = event.page || 0; 
-    this.size = event.rows || 9;
+    this.size = event.rows || 6;
     this.loadBooks(); 
   }
 
 
-  books=[
-    {
-      title: 'The Alchemist ',
-      stars: 4.5,
-      author: 'Paulo Coelho',
-      cover: 'https://marketplace.canva.com/EAFaQMYuZbo/1/0/1003w/canva-brown-rusty-mystery-novel-book-cover-hG1QhA7BiBU.jpg'
-    },
-    {
-      title: 'The Alchemist',
-      stars: 4.5,
-      author: 'Paulo Coelho',
-      cover: 'https://marketplace.canva.com/EAFaQMYuZbo/1/0/1003w/canva-brown-rusty-mystery-novel-book-cover-hG1QhA7BiBU.jpg'
-    },
-    {
-      title: 'The Alchemist',
-      stars: 4.5,
-      author: 'Paulo Coelho',
-      cover: 'https://marketplace.canva.com/EAFaQMYuZbo/1/0/1003w/canva-brown-rusty-mystery-novel-book-cover-hG1QhA7BiBU.jpg'
-    },
-    {
-      title: 'The Alchemist',
-      stars: 4.5,
-      author: 'Paulo Coelho',
-      cover: 'https://marketplace.canva.com/EAFaQMYuZbo/1/0/1003w/canva-brown-rusty-mystery-novel-book-cover-hG1QhA7BiBU.jpg'
-    },
-    {
-      title: 'The Alchemist',
-      stars: 4.5,
-      author: 'Paulo Coelho',
-      cover: 'https://marketplace.canva.com/EAFaQMYuZbo/1/0/1003w/canva-brown-rusty-mystery-novel-book-cover-hG1QhA7BiBU.jpg'
-    },
-    {
-      title: 'The Alchemist',
-      stars: 4.5,
-      author: 'Paulo Coelho',
-      cover: 'https://marketplace.canva.com/EAFaQMYuZbo/1/0/1003w/canva-brown-rusty-mystery-novel-book-cover-hG1QhA7BiBU.jpg'
-    },
-    {
-      title: 'The Alchemist',
-      stars: 4.5,
-      author: 'Paulo Coelho',
-      cover: 'https://marketplace.canva.com/EAFaQMYuZbo/1/0/1003w/canva-brown-rusty-mystery-novel-book-cover-hG1QhA7BiBU.jpg'
-    },
-    {
-      title: 'The Alchemist',
-      stars: 4.5,
-      author: 'Paulo Coelho',
-      cover: 'https://marketplace.canva.com/EAFaQMYuZbo/1/0/1003w/canva-brown-rusty-mystery-novel-book-cover-hG1QhA7BiBU.jpg'
-    },
-    {
-      title: 'The Alchemist',
-      stars: 4.5,
-      author: 'Paulo Coelho',
-      cover: 'https://marketplace.canva.com/EAFaQMYuZbo/1/0/1003w/canva-brown-rusty-mystery-novel-book-cover-hG1QhA7BiBU.jpg'
-    },
-    
-  ]
+ 
 
 
   loadBooks():void{
@@ -109,9 +57,30 @@ export class DiscoverComponent implements OnInit {
 
   getBookCover(book:any):string{
     const  imgPrefix:string = 'http://localhost:8080/livre-service/uploads/book-cover/';
-     console.log(imgPrefix + book.coverPath);
+     
     return imgPrefix + book.coverPath;
 
   }
+  
+
+  showBookDetails(book: any) {
+    this.ref = this.dialogService.open(BookDetailsComponent, {
+      header: book.titre,
+      width: '30%',
+      height: '75vh',
+      data:book
+      
+    });
+  }
+   
+
+  ngOnDestroy() {
+    if (this.ref) {
+      this.ref.close();
+    }
+  }
+
+
+  
 
 }

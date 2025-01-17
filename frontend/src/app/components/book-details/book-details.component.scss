@@ -1,0 +1,31 @@
+
+
+.Description{
+    margin-bottom: 20px;
+}
+
+.dates{
+    display: flex;
+    flex-direction: row;
+    
+}
+
+.dates .reservation-date{
+    margin-right: 10px;
+}
+
+
+.actions{
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    right:5px;
+    bottom: 30px;
+    
+    
+
+}
+
+.actions div{
+    margin-right: 10px;
+}

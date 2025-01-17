@@ -5,6 +5,8 @@ import { MainPageComponent } from '../../components/main-page/main-page.componen
 import { AuthGuard } from '../../core/guards/auth.guard';
 import { RoleGuard } from '../../core/guards/role.guard';
 import { DiscoverComponent } from '../../components/discover/discover.component';
+import { UserReservationsComponent } from '../../components/user-reservations/user-reservations.component';
+import { UserWishlistComponent } from '../../components/user-wishlist/user-wishlist.component';
 
 const routes: Routes = [
   {
@@ -25,6 +27,19 @@ const routes: Routes = [
       {
         path:'Discover',
         component: DiscoverComponent,
+        canActivate: [RoleGuard],
+        data: { roles: ['Etudiant'] },
+      },
+      {
+        path:'User/Reservations',
+        component: UserReservationsComponent,
+        canActivate: [RoleGuard],
+        data: { roles: ['Etudiant'] },
+        
+      },
+      {
+        path:'User/Whishlist',
+        component: UserWishlistComponent,
         canActivate: [RoleGuard],
         data: { roles: ['Etudiant'] },
       }
