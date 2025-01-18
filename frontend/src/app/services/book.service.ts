@@ -56,6 +56,18 @@ export class BookService {
     const url=environment.CheckBookAvailabilityApi+id
     return this.http.get(url)
   }
+
+
+
+  ReserveBook(bookName:string,dateReturn:string|null,BookId:number):Observable<any>{
+    const url=environment.ReserveBookApi + BookId
+    const body={
+      "dateExpiration":dateReturn,
+      "titreLiver":bookName
+        
+    }
+    return this.http.post(url,body)
+  }
   
 
 }

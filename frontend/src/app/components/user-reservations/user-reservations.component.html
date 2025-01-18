@@ -1,3 +1,61 @@
 <div class="container">
-    <p>user-reservations works!</p>
-</div>
+    <div class="header">
+      <div class="text">
+        <p class="larger-text">History</p>
+        <span class="meduim-text">Showing all your reservations in clear views</span>
+      </div>
+      <div class="filter">
+        <p-dropdown
+          [options]="options"
+          [(ngModel)]="selectedValue"
+          optionLabel="viewValue"
+          [placeholder]="customPlaceholder"
+          (onChange)="filterReservations()"
+        >
+          <ng-template pTemplate="placeholder">
+            <i class="pi pi-filter"></i>
+            <span>Filter</span>
+          </ng-template>
+          <ng-template let-option pTemplate="item">
+            <span class="color-circle" [style.background-color]="option.color"></span>
+            {{ option.viewValue }}
+          </ng-template>
+        </p-dropdown>
+      </div>
+    </div>
+  
+    <div class="cards">
+      <div
+        *ngFor="let reservation of filteredReservations"
+        [ngClass]="CheckReservationStatus(reservation.dateExpiration, reservation.returned)"
+        class="card"
+      >
+        <div class="book-title">{{ reservation.titreLiver }}</div>
+        <div class="dates">
+          <div class="date">
+            <i class="pi pi-calendar"></i>
+            <span>{{ reservation.dateReservation }}</span>
+          </div>
+          <div class="date">
+            <i class="pi pi-calendar"></i>
+            <span>{{ reservation.dateExpiration }}</span>
+          </div>
+        </div>
+        <div class="penalty">Delay cost</div>
+        <div class="status">
+          <p-tag
+            [severity]="getSeverity(CheckReservationStatus(reservation.dateExpiration, reservation.returned))"
+            [value]="CheckReservationStatus(reservation.dateExpiration, reservation.returned)"
+            [rounded]="true"
+          ></p-tag>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="paginator">
+     
+    </div>
+
+  </div>
+  

@@ -13,6 +13,7 @@ import { BookDetailsComponent } from '../../components/book-details/book-details
 import { UserReservationsComponent } from '../../components/user-reservations/user-reservations.component';
 import { UserWishlistComponent } from '../../components/user-wishlist/user-wishlist.component';
 import { CalendarModule } from 'primeng/calendar';
+import { SkeletonModule } from 'primeng/skeleton';
 @NgModule({
   declarations: [
     UserLayoutComponent,
@@ -36,7 +37,8 @@ import { CalendarModule } from 'primeng/calendar';
     RatingModule,
     PaginatorModule,
     TagModule,
-    CalendarModule
+    CalendarModule,
+    SkeletonModule,
     
   ]
 })

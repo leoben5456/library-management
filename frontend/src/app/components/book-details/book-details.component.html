@@ -5,28 +5,30 @@
 
     <div class="dates">
         <div class="reservation-date">
-
-            <span>Reservation Date</span>
-            <p-calendar 
-                [(ngModel)]="reservationDate" 
-                [iconDisplay]="'input'" 
-                [showIcon]="true" 
-                [disabled]="true"
-                inputId="icondisplay" />
+          <span >Reservation Date</span>
+          <input
+            pInputText
+            id="reservation-date"
+            [disabled]="true"
+            placeholder="yyyy-mm-dd"
+            [(ngModel)]="reservationDateString"
+          />
         </div>
         <div class="return-date">
-            <span>Return Date</span>
-            <p-calendar 
-                [(ngModel)]="reservationDate" 
-                [iconDisplay]="'input'" 
-                [showIcon]="true" 
-                [disabled]="true"
-                inputId="icondisplay" />
+          <span>Return Date</span>
+          <input
+            pInputText
+            id="return-date"
+            
+            placeholder="yyyy-mm-dd"
+            [(ngModel)]="returnDateString"
+          />
         </div>
-    </div>
+      </div>
+      
 
     <div class="actions">
-        <div>
+        <div *ngIf="isVisible">
             <p-button
           label="Add Wishlist" 
           icon="pi pi-plus" 
@@ -40,7 +42,7 @@
 
 
         <div>
-            <p-button label="Reserve" severity="info" (onClick)="ReserverBook()"  size="small" icon="pi pi-check" size="small" />
+            <p-button label="Reserve" severity="info" (onClick)="ReserveBook(book.titre,returnDateString,book.id)"  size="small" icon="pi pi-check" size="small" />
         </div>
         
         

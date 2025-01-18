@@ -35,6 +35,7 @@ public class Livre {
     @Enumerated(EnumType.STRING)
     private Status status=Status.AVAILABLE;
     private String coverPath;
+    @Lob
     private String description;
     private float rating;
 

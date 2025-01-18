@@ -29,5 +29,9 @@ export const environment = {
     // Get user books in the wishlist Endpoint
     UserWishlistApi:'http://localhost:8080/livre-service/user/wishlist',
 
+
+    //Reserve Book Endpoint
+    ReserveBookApi:'http://localhost:8080/reservation-service/reservation/creation/',
+
     
 };
