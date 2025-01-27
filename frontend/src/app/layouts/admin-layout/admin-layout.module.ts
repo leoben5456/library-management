@@ -47,6 +47,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     BarChartComponent,
     ReservationTableComponent,
     AdminSideNavComponent,
+  
   ],
   imports: [
     CommonModule,

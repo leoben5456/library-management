@@ -13,7 +13,8 @@ import { BookDetailsComponent } from '../../components/book-details/book-details
 import { UserReservationsComponent } from '../../components/user-reservations/user-reservations.component';
 import { UserWishlistComponent } from '../../components/user-wishlist/user-wishlist.component';
 import { CalendarModule } from 'primeng/calendar';
-import { SkeletonModule } from 'primeng/skeleton';
+
+
 @NgModule({
   declarations: [
     UserLayoutComponent,
@@ -24,6 +25,7 @@ import { SkeletonModule } from 'primeng/skeleton';
     BookDetailsComponent,
     UserReservationsComponent,
     UserWishlistComponent,
+    
 
     
     
@@ -38,7 +40,7 @@ import { SkeletonModule } from 'primeng/skeleton';
     PaginatorModule,
     TagModule,
     CalendarModule,
-    SkeletonModule,
+    
     
   ]
 })

@@ -14,6 +14,8 @@ import java.util.Optional;
 public interface LivreRepository extends JpaRepository<Livre, Integer> {
     Optional<Livre> findById(int id);
     Optional<Livre> findByTitre(String titre);
+
+
     List<Livre> findByAuteur(String auteur);
     List<Livre> findByGenre(String genre);
     List<Livre> findByLangue(String langue);
@@ -22,5 +24,7 @@ public interface LivreRepository extends JpaRepository<Livre, Integer> {
     @Query("SELECT CASE WHEN COUNT(l) > 0 THEN TRUE ELSE FALSE END FROM Livre l WHERE l.titre = :title AND l.isReserved = FALSE")
     boolean existsAndIsAvailableByTitle(String title);
 
+    @Query(value = "SELECT * FROM livre ORDER BY RAND() LIMIT 6", nativeQuery = true)
+    List<Livre> findRandomBooks();
 
 }

@@ -18,7 +18,7 @@ public class UsersStatistics {
     @Id
     private String id;
     private int totalUsers;
-    private Map<String, Double> userBreakdown;
+    private Map<String, Integer> userBreakdown;
     private int percentageChange;
     private LocalDateTime lastUpdated;
 }

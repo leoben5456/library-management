@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
@@ -15,6 +15,10 @@ export interface Book {
   providedIn: 'root'
 })
 export class BookService {
+
+
+  private apiUrl = `${environment.geminiApiUrl}?key=${environment.geminiApiKey}`;
+
 
   constructor(private http:HttpClient) {}
 
@@ -70,4 +74,33 @@ export class BookService {
   }
   
 
+  getBooksByGenre(genre:string):Observable<any>{
+    const url=environment.BooksByGenreApi+genre
+    return this.http.get(url)
+  }
+
+  
+  fillFieldWithAi(bookName: string): Observable<any> {
+    const requestBody = {
+      contents: [
+        {
+          parts: [
+            {
+              text: `You are a knowledgeable library assistant. When provided with a book title "${bookName}", respond only in JSON format with the following fields: {"book_name": "<book name>", "author_name": "<author>", "description": "<detailed and informative book description, at least 150 words>", "language": "<language>", "category": "<category>", "quantity": "<default quantity>", "rating": "<default rating>"}. Ensure the description provides a summary of the book's plot, themes, and significance.`
+
+            }
+          ]
+        }
+      ]
+    };
+  
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+  
+    return this.http.post<any>(this.apiUrl, requestBody, { headers });
+  }
+  
 }
+
+

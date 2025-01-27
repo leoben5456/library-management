@@ -41,8 +41,8 @@
             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
           </th>
           <th style="width:25%">Reservation Id</th>
+          <th style="width:25%">Date Expiration </th>
           <th style="width:25%">Date Reservation</th>
-          <th style="width:25%">Date Expiration</th>
           <th style="width:25%">Action</th>
         </tr>
       </ng-template>
@@ -56,21 +56,9 @@
           <td>{{ reservation.dateExpiration}}</td>
           <td>{{ reservation.dateReservation}}</td>
           <td>
-            <p-button
-            icon="pi pi-pencil"
-            [rounded]="true"
-            [outlined]="true"
-            severity="success"
-            styleClass="xsmall-button"
-          ></p-button>
-          <p-button
-            icon="pi pi-trash"
-            [rounded]="true"
-            [outlined]="true"
-            severity="danger"
-            styleClass="xsmall-button"
-          ></p-button>
+            <p-button *ngIf="!reservation.returned" (click)="confirm1($event,reservation.id)" label="Done" />
 
+            <p-tag *ngIf="reservation.returned" icon="pi pi-check" value="Book Returned" />
           </td>
        </tr>
       </ng-template>

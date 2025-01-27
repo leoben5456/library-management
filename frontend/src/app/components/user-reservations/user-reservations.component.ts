@@ -35,10 +35,11 @@ export class UserReservationsComponent implements OnInit {
   }
 
   loadReservations() {
-    this.reservationService.getAllReservations(0, 10).subscribe((res) => {
+    this.reservationService.getUserReservations(0, 10).subscribe((res) => {
       this.reservations = res.content;
       this.totalRecords = res.totalElements;
       this.filteredReservations = this.reservations;
+      console.log(this.reservations);
     });
   }
 

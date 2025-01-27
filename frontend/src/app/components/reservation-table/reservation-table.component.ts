@@ -4,6 +4,7 @@ import { Book, BookService } from '../../services/book.service';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { BookDialogComponent } from '../book-dialog/book-dialog.component';
 import { ReservationService } from '../../services/reservation.service';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-reservation-table',
@@ -23,7 +24,7 @@ books!: Book[];
   size: number = 6;
   totalRecords: number = 0;
 
-  constructor(private bookService: BookService,private reservationService:ReservationService) {}
+  constructor(private bookService: BookService,private reservationService:ReservationService,private confirmationService: ConfirmationService, private messageService: MessageService) {}
 
   ngOnInit() {
     
@@ -54,4 +55,34 @@ books!: Book[];
    }
 
 
+   
+
+   confirm1(event: Event,reservationId:Number) {
+    this.confirmationService.confirm({
+        target: event.target as EventTarget,
+        message: 'Are you sure that you want to proceed?',
+        header: 'Confirmation',
+        icon: 'pi pi-exclamation-triangle',
+        acceptIcon:"none",
+        rejectIcon:"none",
+        rejectButtonStyleClass:"p-button-text",
+        accept: () => {
+            this.updateReservationStatus(reservationId);
+            this.loadReservations();
+            this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted' });
+        },
+        reject: () => {
+            this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+        }
+    });
+}
+
+   updateReservationStatus(reservationId:Number){
+    this.reservationService.changeResrvationStatus(reservationId).subscribe((response)=>
+
+      console.log(response)
+      
+    )
+   }
+ 
 }

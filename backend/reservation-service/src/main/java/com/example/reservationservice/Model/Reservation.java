@@ -21,9 +21,16 @@ public class Reservation {
     private String titreLiver;
     private String emailuser;
     private int livreId;
+    private String dayOfWeek;
     private boolean isReturned=false;
     private LocalDate dateReturned;
     private double penalty=0.0;
+
+
+    public void setDateReservation(LocalDate dateReservation) {
+        this.dateReservation = dateReservation;
+        this.dayOfWeek = (dateReservation != null) ? dateReservation.getDayOfWeek().name() : null;
+    }
 
 }
 

@@ -4,7 +4,9 @@
            <div class="title"><span>Recommended</span></div>
            <div class="btn">See All  </div>
         </div>
-        <div class="recommended-books">
+
+
+        <div *ngIf="!isLoading" class="recommended-books">
             <!-- Use *ngFor to loop through the books array -->
             <div class="book" *ngFor="let book of books" (click)="selectBook(book.id)" >
                 <img [src]="book.image" [alt]="book.title">
@@ -14,6 +16,19 @@
                 </div>
             </div>
         </div>
+
+
+        <!-- Skeleton placeholders while data is loading -->
+        <div class="recommended-books" *ngIf="isLoading">
+          <div class="book" *ngFor="let placeholder of [1,2,3,4,5]">
+            <p-skeleton shape="rectangle" width="100%" height="200px"></p-skeleton>
+            <div class="book-info">
+              <p-skeleton  height="10px"  width="80%"></p-skeleton>
+              <p-skeleton height="10px"  width="60%"></p-skeleton>
+            </div>
+          </div>
+        </div>
+        
     </div>
 
     <div class="horizontal middle">
@@ -45,11 +60,11 @@
       
         <!-- Actual content once books are loaded -->
         <div class="books-of-category" *ngIf="!isLoading">
-          <div class="book" *ngFor="let book of books">
-            <img [src]="book.image" [alt]="book.title">
+          <div class="book" *ngFor="let book of BooksByGengre">
+            <img [src]="getBookCover(book)" [alt]="book.title">
             <div class="book-info">
-              <h3>{{ book.title | truncate:10 }}</h3>
-              <p>{{ book.author }}</p>
+              <h3>{{ book.titre | truncate:10 }}</h3>
+              <p>{{ book.auteur }}</p>
             </div>
           </div>
         </div>
@@ -65,7 +80,7 @@
                 <p class="author" >{{ book.author }}</p>
                 <div class="rating-container">
                     <p-rating [(ngModel)]=book.stars [readonly]="true" [cancel]="false"></p-rating>
-                    <span>{{ value }}</span>
+                    <span>{{ book.stars }}</span>
                 </div>  
                 <p class="description">{{ book.description }}</p>
                 <div class="btn"><button>Reserve Now</button></div>            

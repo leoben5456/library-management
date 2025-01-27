@@ -12,7 +12,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -178,6 +180,25 @@ public class UserServiceImpl implements UserService {
     @Override
     public long count(){
         return userRepository.count();
+    }
+
+    @Override
+    public long getTotalUserCount() {
+        return   userRepository.count();
+
+
+    }
+
+    public Map<String, Long> getUserBreakdownByRole() {
+        List<Object[]> roleCounts = userRepository.getUserCountByRole();
+
+        Map<String, Long> userCountByRole = new HashMap<>();
+        for (Object[] entry : roleCounts) {
+            String role = (String) entry[0];
+            Long count = ((Number) entry[1]).longValue(); // Cast to Number first, then get long value
+            userCountByRole.put(role, count);
+        }
+        return userCountByRole;
     }
 
 

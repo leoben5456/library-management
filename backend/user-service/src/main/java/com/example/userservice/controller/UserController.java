@@ -27,7 +27,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -190,6 +192,21 @@ public class UserController {
     }
 
 
+    @GetMapping("/user/stats")
+    public ResponseEntity<Map<String, Object>> getTotalUsersAndBreakdown() {
+        // Fetch total users
+        long totalUsers = userService.getTotalUserCount();
+
+        // Fetch user breakdown
+        Map<String, Long> userBreakdown = userService.getUserBreakdownByRole();
+
+        // Combine into a response map
+        Map<String, Object> response = new HashMap<>();
+        response.put("totalUsers", totalUsers);
+        response.put("userBreakdown", userBreakdown);
+
+        return ResponseEntity.ok(response);
+    }
 
 
 

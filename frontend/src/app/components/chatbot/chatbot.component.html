@@ -1,0 +1,26 @@
+<div class="chatbot-container" (click)="openPopup()">
+  <div class="chatbot">
+    <mat-icon>{{isPopupOpen ? 'close' : 'chat_bubble'}}</mat-icon>
+  </div>
+  <div class="chat-dialog" *ngIf="isPopupOpen"  [@popupAnimation]="isPopupOpen ? 'open' : 'closed'" (click)="$event.stopPropagation()">
+    <div class="chat-dialog-header">
+      Chatbot Assistant
+    </div>
+
+    <div class="chat-dialog-messages">
+      <div *ngFor="let message of messages" class="message-container" [ngClass]="{'user': message.sender === 'You'}">
+        <div class="message" [ngClass]="{'user': message.sender === 'You'}">
+           {{ message.text}}
+        </div>
+      </div>
+    </div>
+    <div class="chat-dialog-input">
+      <mat-form-field class="input-container">
+        <input matInput placeholder="Type your Question..." [(ngModel)]="userInput">
+        <button mat-icon-button matSuffix>
+          <mat-icon>send</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+  </div>
+</div>

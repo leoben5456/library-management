@@ -2,7 +2,9 @@ package com.example.reservationservice.Service;
 
 import com.example.livreservice.Model.Livre;
 import com.example.livreservice.Model.Status;
+import com.example.reservationservice.DTO.BorrowStatisticsDTO;
 import com.example.reservationservice.Model.Reservation;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -15,6 +17,10 @@ public interface ReservationService {
     Page<Reservation> getAllReservations(Pageable pageable);
     void deleteReservation(int id);
     void updateReservationById(int id, Reservation reservation);
+
+    @Transactional
+    void updateReservationReturnedById(int id, boolean returned);
+
     Livre getLivreById(int id, String token);
    // boolean isLivreAvailable(int livreId, String token);
     void saveReservation(Reservation reservation, String token);
@@ -22,4 +28,10 @@ public interface ReservationService {
     void updateLivreStatus(int livreId, Status status, String token);
 
     Page<Reservation> getReservationsByEmail(String email, Pageable pageable);
+
+    BorrowStatisticsDTO getBorrowStatistics();
+
+    int getNumberOfPenaltiesThisMonth();
+
+    int getOverdueBookCount();
 }

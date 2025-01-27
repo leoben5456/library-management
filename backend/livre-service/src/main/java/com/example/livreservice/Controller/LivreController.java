@@ -237,9 +237,14 @@ public class LivreController {
     }
 
 
-    @GetMapping("/livres/genre")
-    public ResponseEntity<List<Livre>> getLivresByGenre(@RequestParam String genre) {
-        List<Livre> livres = livreService.getLivresByGenre(genre);
+    @GetMapping("/livres/{genre}")
+    public ResponseEntity<List<Livre>> getLivresByGenre(@PathVariable String genre) {
+        List<Livre> livres;
+        if ("All".equalsIgnoreCase(genre)) {
+            livres = livreService.getRandomBooks();
+        } else {
+            livres = livreService.getLivresByGenre(genre);
+        }
         return ResponseEntity.ok(livres);
     }
 

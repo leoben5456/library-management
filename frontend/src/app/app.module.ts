@@ -21,6 +21,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { FormsModule } from '@angular/forms';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
 import { DatePipe } from '@angular/common';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { DatePipe } from '@angular/common';
     HttpClientModule,
     SelectButtonModule,
     FormsModule,
+    ProgressSpinnerModule
     
   ],
   providers: [{provide: HTTP_INTERCEPTORS,useClass: authInterceptor,multi: true,},DatePipe],

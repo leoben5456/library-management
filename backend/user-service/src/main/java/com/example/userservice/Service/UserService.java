@@ -6,6 +6,7 @@ import com.example.reservationservice.Model.Reservation;
 import com.example.userservice.Model.User;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserService {
     void saveUser(User user);
@@ -20,5 +21,8 @@ public interface UserService {
     void deleteReservation(int id, String token);
     void updateReservationById(int id, Reservation reservation , String token);
     long count();
+
+    long getTotalUserCount();
+    Map<String, Long> getUserBreakdownByRole();
 
 }

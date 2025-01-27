@@ -2,22 +2,26 @@
   <div class="container">
     <div class="content">
 
-      <label for="bookName">Book Name</label>
-      <input 
-        class="name-field" 
-        type="text" 
-        pInputText 
-        formControlName="titre" 
-        id="titre"
-      />
+      <div class="book-name-group">
+        <label for="bookName">Book Name</label>
+        <i (click)="fillBookDetailsWithAI()" *ngIf="bookForm.get('titre')?.value" [ngClass]="{'iconloading':loading}" class="pi pi-sparkles ai-icon"></i>
+        <input
+          class="name-field"
+          type="text"
+          pInputText
+          formControlName="titre"
+          id="bookName"
+        />
+      </div>
 
       <label for="authorName">Author Name</label>
-      <input 
-        class="author-field" 
-        type="text" 
-        pInputText 
-        formControlName="auteur" 
+      <input
+        class="author-field"
+        type="text"
+        pInputText
+        formControlName="auteur"
         id="authorName"
+        *ngIf="!loading; else skeleton"
       />
       <div *ngIf="bookForm.get('authorName')?.touched && bookForm.get('authorName')?.invalid" class="error">
         <small>Author Name is required</small>
@@ -30,55 +34,62 @@
         pInputTextarea
         formControlName="description"
         id="description"
+        *ngIf="!loading; else skeletonDescription"
       ></textarea>
 
       <div class="form-row">
         <div class="form-group">
           <label for="language">Language</label>
-          <input
-            class="name-field"
-            type="text"
-            pInputText
-            formControlName="langue"
-            id="language"
-          />
+          <ng-container *ngIf="!loading; else skeletonSmall">
+            <input
+              class="name-field"
+              type="text"
+              pInputText
+              formControlName="langue"
+              id="language"
+            />
+          </ng-container>
         </div>
-
         <div class="form-group">
           <label for="category">Category</label>
-          <input
-            class="name-field"
-            type="text"
-            pInputText
-            formControlName="category"
-            id="category"
-          />
+          <ng-container *ngIf="!loading; else skeletonSmall">
+            <input
+              class="name-field"
+              type="text"
+              pInputText
+              formControlName="category"
+              id="category"
+            />
+          </ng-container>
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group">
           <label for="quantity">Quantity</label>
-          <input
-            class="name-field"
-            type="text"
-            pInputText
-            formControlName="quantite"
-            id="quantity"
-          />
+          <ng-container *ngIf="!loading; else skeletonSmall">
+            <input
+              class="name-field"
+              type="text"
+              pInputText
+              formControlName="quantite"
+              id="quantity"
+            />
+          </ng-container>
+           
         </div>
-
         <div class="form-group">
           <label for="rating">Rating</label>
-          <input
-            class="name-field"
-            type="text"
-            pInputText
-            formControlName="rating"
-            id="rating"
-          />
+          <ng-container *ngIf="!loading; else skeletonSmall">
+            <input
+              class="name-field"
+              type="text"
+              pInputText
+              formControlName="rating"
+              id="rating"
+            />
+          </ng-container>
         </div>
-
         <div class="form-group">
           <label for="cover">Cover</label>
           <p-fileUpload
@@ -88,33 +99,46 @@
             name="cover"
             accept="image/*"
             maxFileSize="1000000"
-            (onSelect)="onFileSelect($event)" 
-          >
-          </p-fileUpload>
+            (onSelect)="onFileSelect($event)"
+          ></p-fileUpload>
         </div>
       </div>
 
       <div class="footer">
-        <p-button 
-          (onClick)="close()" 
-          label="Cancel" 
-          icon="pi pi-times" 
-          [text]="true"  
-          severity="info" 
+        <p-button
+          (onClick)="close()"
+          label="Cancel"
+          icon="pi pi-times"
+          [text]="true"
+          severity="info"
           size="small"
-        >
-        </p-button>
-
-        <p-button 
+        ></p-button>
+        <p-button
           type="submit"
-          label="Save" 
-          icon="pi pi-check" 
-          [text]="true"  
-          severity="info" 
+          label="Save"
+          icon="pi pi-check"
+          [text]="true"
+          severity="info"
           size="small"
-        >
-        </p-button>
+        ></p-button>
       </div>
     </div>
   </div>
 </form>
+
+<ng-template #skeleton>
+  <p-skeleton width="100%" height="2rem"></p-skeleton>
+</ng-template>
+
+<ng-template #skeletonDescription>
+  <p-skeleton width="100%" height="5rem"></p-skeleton>
+</ng-template>
+
+<ng-template #skeletonSmall>
+  <div class="name-field">
+    <p-skeleton [style]="{'width':'100%', 'height':'2.3rem', 'box-sizing':'border-box'}"></p-skeleton>
+  </div>
+</ng-template>
+
+
+

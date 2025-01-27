@@ -1,70 +1,95 @@
-
-
-.header{
+.header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    
-}
-
-
-.header .title p{
+  }
+  .header .title p {
     font-size: 20px;
     font-style: bold;
     color: #333;
-}
-
-.close i{
+  }
+  .close i {
     font-size: 20px;
     color: #8f8f8f;
     cursor: pointer;
-}
-
-
-.content label,.form-row label {
+  }
+  .content label, .form-row label {
     display: block;
     margin-bottom: 5px;
     color: #333;
     font-size: 15px;
-}
-
-.content .name-field,
-.content .author-field,
-.content .description-field {
-    margin-bottom:10px;
-}
-
-.content input[pInputText],
-.content textarea[pInputTextarea] {
+  }
+  .content .name-field,
+  .content .author-field,
+  .content .description-field {
+    margin-bottom: 10px;
+  }
+  .content input[pInputText],
+  .content textarea[pInputTextarea] {
     width: 100%;
     box-sizing: border-box;
-}
-
-::ng-deep .content input[pInputText]{
+  }
+  ::ng-deep .content input[pInputText] {
     padding: 7px !important;
-}
-
-.form-row {
+  }
+  .form-row {
     display: flex;
     justify-content: space-between;
     padding-top: 10px;
-}
-
-.form-group{
-    padding-right:10px;
-}
-
-.form-row .cover{
-   
+  }
+  .form-row .form-group {
+    flex: 1 1 0;
+    margin-right: 10px;
+  }
+  .form-row .form-group:last-child {
+    margin-right: 0;
+  }
+  .form-row .cover {
     margin-bottom: 10px;
-}
-
-
-.footer{
+  }
+  .footer {
     position: absolute;
-    bottom:10px;
+    bottom: 10px;
     right: 10px;
-}
+  }
+  .book-name-group {
+    position: relative;
+    margin-bottom: 10px;
+  }
+  .book-name-group label {
+    display: block;
+    margin-bottom: 5px;
+  }
 
-
-
+  i{
+    cursor: pointer;
+  }
+  .ai-icon {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    z-index: 2;
+  }
+  .iconloading {
+    animation: colorChange 1s infinite;
+  }
+  @keyframes colorChange {
+    0% {
+      color: red;
+    }
+    25% {
+      color: orange;
+    }
+    50% {
+      color: yellow;
+    }
+    75% {
+      color: green;
+    }
+    100% {
+      color: blue;
+    }
+  }
+  

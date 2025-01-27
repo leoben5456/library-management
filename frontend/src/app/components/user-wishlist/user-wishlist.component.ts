@@ -17,9 +17,12 @@ export class UserWishlistComponent implements OnInit {
   
   size: number = 9;
   
+  isWishlistEmpty=true;
   
   totalRecords: number = 0;
    
+  isLoading: boolean = true; 
+
   ref: DynamicDialogRef | undefined;
 
 
@@ -41,7 +44,11 @@ export class UserWishlistComponent implements OnInit {
   loadBooksFromUserWishlist(){
     this.wishlistService.getBooksFromUserWishlist().subscribe((data:any)=>{
       this.Books = data;
+      if(this.Books.length>0){
+        this.isWishlistEmpty=false;
+      }
       console.log(this.Books);
+      console.log(this.isWishlistEmpty);
     })
   }
 

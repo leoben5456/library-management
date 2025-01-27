@@ -12,11 +12,20 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { FileUploadModule } from 'primeng/fileupload';
 import { InputMaskModule } from 'primeng/inputmask';
 import { ToastModule } from 'primeng/toast';
+import { BadgeModule } from 'primeng/badge';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { ChatbotComponent } from '../../components/chatbot/chatbot.component';
+import { MenuModule } from 'primeng/menu';
+
 @NgModule({
-  declarations: [TopBarComponent],
+  declarations: [TopBarComponent,ChatbotComponent],
   exports: [
     TopBarComponent,
     CommonModule,
+    ChatbotComponent,
     IconFieldModule,
     InputIconModule,
     InputTextModule,
@@ -25,7 +34,14 @@ import { ToastModule } from 'primeng/toast';
     ConfirmDialogModule,
     FileUploadModule,
     InputMaskModule,
-    ToastModule
+    ToastModule,
+    BadgeModule,
+    SkeletonModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule,
+    MenuModule
   ],
 
   
@@ -39,7 +55,18 @@ import { ToastModule } from 'primeng/toast';
     ConfirmDialogModule,
     FileUploadModule,
     InputMaskModule,
-    ToastModule
+    ToastModule,
+    BadgeModule,
+    SkeletonModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule,
+    MenuModule
   ],
   providers: [MessageService,DialogService,MessageService,ConfirmationService],
 })

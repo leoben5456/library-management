@@ -5,7 +5,9 @@ import com.example.livreservice.Model.Livre;
 import com.example.livreservice.Model.Status;
 import com.example.livreservice.Repository.CategoryRepository;
 import com.example.livreservice.Repository.LivreRepository;
+import com.example.livreservice.Repository.WishlistRepositoy;
 import com.example.livreservice.Service.LivreService;
+import com.example.livreservice.Service.WishlistService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -19,11 +21,13 @@ public class LivreServiceImpl implements LivreService {
 
     private final LivreRepository livreRepository;
     private final CategoryRepository categoryRepository;
+    private  final WishlistRepositoy wishlistRepositoy;
 
 
-    public LivreServiceImpl(LivreRepository livreRepository, CategoryRepository categoryRepository) {
+    public LivreServiceImpl(LivreRepository livreRepository, CategoryRepository categoryRepository, WishlistRepositoy wishlistRepositoy) {
         this.livreRepository = livreRepository;
         this.categoryRepository = categoryRepository;
+        this.wishlistRepositoy = wishlistRepositoy;
     }
 
     @Override
@@ -66,6 +70,7 @@ public class LivreServiceImpl implements LivreService {
     @Override
     @Transactional
     public void deleteLivre(int id) {
+        wishlistRepositoy.deleteByLivreId(id);
         livreRepository.deleteById(id);
     }
     @Override
@@ -158,7 +163,10 @@ public class LivreServiceImpl implements LivreService {
         }
     }
 
-
+    @Override
+    public List<Livre> getRandomBooks() {
+        return livreRepository.findRandomBooks();
+    }
 
 
 }

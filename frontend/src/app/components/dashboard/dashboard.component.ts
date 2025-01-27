@@ -21,7 +21,7 @@ export class DashboardComponent {
           { component:PieChartComponent,title: 'User Breakdown', cols: 1, rows: 1 },
           { component:RadarChartComponent,title: 'Borrow & Back', cols: 1, rows: 1 },
           { component:BarChartComponent,title: 'Penalties Overview', cols: 1, rows: 1 },
-          { component:PieChartComponent,title: 'Card 4', cols: 1, rows: 1 }
+          //{ component:PieChartComponent,title: 'Card 4', cols: 1, rows: 1 }
         ];
       }
 
@@ -29,7 +29,7 @@ export class DashboardComponent {
         { component:PieChartComponent,title: 'User Breakdown', cols: 1, rows: 1 },
         { component:RadarChartComponent,title: 'Borrow & Back', cols: 1, rows: 1 },
         { component:BarChartComponent,title: 'Penalties Overview', cols: 1, rows: 1 },
-        { component:PieChartComponent,title: 'Card 4', cols: 1, rows: 1 }
+        //{ component:PieChartComponent,title: 'Card 4', cols: 1, rows: 1 }
       ];
     })
   );

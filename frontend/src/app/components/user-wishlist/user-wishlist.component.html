@@ -1,5 +1,5 @@
 <div class="books-container">
-    <div class="container-conent">
+    <div  *ngIf="!isWishlistEmpty"  class="container-conent">
         <div *ngFor="let book of Books" class="book" (click)="showBookDetails(book)" >
             
             <div class="cover">
@@ -25,6 +25,33 @@
 
         </div>
         
+    </div>
+
+
+
+   <!-- Case that user not have any books in wishlist -->
+
+    <div class="no-books" *ngIf="isWishlistEmpty" >
+          
+        
+
+       <div class="image">
+         <img src="https://www.pavejewelers.com/assets/images/empty-wishlist.png" alt="">
+       </div>
+
+        <div class="details">
+            <div class="text">
+                <span>Your Wishlist is empty!</span>
+                <p>Seems like you don't have wishes here.</p>
+
+            </div>
+
+            <div class="btn">
+                <button routerLink="/Discover" class="btn-primary">Start Exploring</button>
+            </div>
+
+        </div>
+
     </div>
     
 </div> 

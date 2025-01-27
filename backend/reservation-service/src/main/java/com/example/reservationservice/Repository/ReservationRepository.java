@@ -22,5 +22,18 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
     @Query("SELECT r FROM Reservation r WHERE r.emailuser = :email")
     Page<Reservation> getReservationsByEmail(String email, Pageable pageable);
 
+    @Query("SELECT COUNT(r) FROM Reservation r WHERE r.isReturned = false")
+    int countTotalBorrowed();
+
+    @Query("SELECT r.dayOfWeek, COUNT(r) FROM Reservation r WHERE r.isReturned = false GROUP BY r.dayOfWeek")
+    List<Object[]> countBorrowedByDayOfWeek();
+
+    // Get count of penalties for the current month
+    @Query("SELECT COUNT(r) FROM Reservation r WHERE r.penalty > 0 AND MONTH(r.dateReturned) = MONTH(CURRENT_DATE) AND YEAR(r.dateReturned) = YEAR(CURRENT_DATE)")
+    int countPenaltiesThisMonth();
+
+    @Query("SELECT COUNT(r) FROM Reservation r WHERE r.dateExpiration < CURRENT_DATE AND r.isReturned = false")
+    int countOverdueBooks();
+
 
 }

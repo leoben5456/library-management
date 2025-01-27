@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BookService } from '../../services/book.service';
 
 @Component({
   selector: 'app-main-page',
@@ -6,8 +7,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrl: './main-page.component.scss'
 })
 export class MainPageComponent implements OnInit {
+
+   
   isLoading:boolean = false;
+
+  BooksByGengre:any[] = [];
+
+  RecommendedBooks:any[] = [];
+
+
+constructor(private bookService:BookService) { }
+  
   ngOnInit(): void {
+    
+    this.loadBooksBygenre('All');
+    
+
     
   }
   
@@ -56,28 +71,59 @@ export class MainPageComponent implements OnInit {
     }
   ];
 
-
+  selectedCategory:string = 'All';
   categories = [
     { name: 'All'},
-    { name: 'Business' },
+    { name: 'Fantasy' },
     { name: 'Fiction'},
-    { name: 'Non-Fiction'},
-    { name: 'Self-Help'},
+    { name: 'Adventure'},
+    { name: 'Romance'},
     { name: 'Technology'},
-    { name: 'History'},
-    { name: 'Biography'}
+    { name: 'Historical'},
+    { name: 'Novel'}
   ];
 
-  selectedCategory:string = 'All';
+  
 
   selectCategory(category:string){
     this.selectedCategory = category;
-    console.log(category);
+    this.loadBooksBygenre(category);
   }
 
   selectedBookId:number=1;
+
   selectBook(id:number){
     this.selectedBookId = id;
   }
+
+
+ loadBooksBygenre(genre:string){
+    this.isLoading = true;
+    this.bookService.getBooksByGenre(genre).subscribe(
+      (response:any)=>{
+        console.log(response);
+        this.BooksByGengre = response;
+        this.isLoading = false;
+      },
+      (error)=>{
+        console.log(error);
+        this.isLoading = true;
+      }
+    )
+
+  }
+
+
+
+
+
+
+ getBookCover(book:any):string{
+  const  imgPrefix:string = 'http://localhost:8080/livre-service/uploads/book-cover/';
+   
+  return imgPrefix + book.coverPath;
+
+}
+
 
 }

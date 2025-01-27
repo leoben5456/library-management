@@ -2,6 +2,7 @@ package com.example.reservationservice.Controller;
 
 import com.example.livreservice.Model.Livre;
 import com.example.livreservice.Model.Status;
+import com.example.reservationservice.DTO.BorrowStatisticsDTO;
 import com.example.reservationservice.Model.Reservation;
 import com.example.reservationservice.Service.ReservationService;
 import com.example.reservationservice.ServiceIMPL.JwtUtil;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpHeaders;
 
 import java.time.LocalDate;
+import java.util.Map;
 
 @RestController
 
@@ -168,6 +170,8 @@ public class ReservationController {
     }
 
 
+
+
     @DeleteMapping("/deleteReservation/{id}")
     public ResponseEntity<String> deleteReservation(@PathVariable int id) {
         try {
@@ -182,11 +186,19 @@ public class ReservationController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error during deletion: " + e.getMessage());
         }
     }
-    @PutMapping("/reservation/update/{id}")
-    public ResponseEntity<String> updateReservationById(@PathVariable int id, @Valid @RequestBody Reservation reservation) {
+
+    @PatchMapping("/reservation/update/returned/{id}")
+    public ResponseEntity<String> updateReservationReturnedById(
+            @PathVariable int id,
+            @RequestBody Map<String, Boolean> updateRequest) {
         try {
-            reservationService.updateReservationById(id, reservation);
-            return ResponseEntity.status(HttpStatus.OK).body("Reservation updated successfully!");
+            if (!updateRequest.containsKey("returned")) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Missing 'returned' field in request body.");
+            }
+
+            boolean returned = updateRequest.get("returned");
+            reservationService.updateReservationReturnedById(id, returned);
+            return ResponseEntity.status(HttpStatus.OK).body("Reservation 'returned' status updated successfully!");
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid input: " + e.getMessage());
@@ -195,6 +207,7 @@ public class ReservationController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error during update: " + e.getMessage());
         }
     }
+
 
 
     @GetMapping("/reservation/user")
@@ -213,6 +226,24 @@ public class ReservationController {
         }
     }
 
+
+    @GetMapping("/borrow/stats")
+    public ResponseEntity<BorrowStatisticsDTO> getBorrowStatistics() {
+        BorrowStatisticsDTO statistics = reservationService.getBorrowStatistics();
+        return ResponseEntity.ok(statistics);
+    }
+
+    @GetMapping("/penalties-count-this-month")
+    public ResponseEntity<Integer> getPenaltiesCountThisMonth() {
+        int penaltyCount = reservationService.getNumberOfPenaltiesThisMonth();
+        return ResponseEntity.ok(penaltyCount);
+    }
+
+    @GetMapping("/overdue-books/count")
+    public ResponseEntity<Integer> getOverdueBookCount() {
+        int overdueCount = reservationService.getOverdueBookCount();
+        return ResponseEntity.ok(overdueCount);
+    }
 
 
 }

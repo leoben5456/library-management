@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
   export class LoginComponent {
       checked: boolean = false;
       LoginForm!: FormGroup;
+      isLoading:boolean=false;
 
     constructor(private fb: FormBuilder,private authservice:AuthService,private router:Router) {
 
@@ -32,7 +33,7 @@ import { Router } from '@angular/router';
     
     onLogin(){
     console.log(this.LoginForm.value)
-
+      this.isLoading=true;
       this.authservice.authentificate(this.LoginForm.value).subscribe(
         data => {
           
@@ -48,6 +49,8 @@ import { Router } from '@angular/router';
             }
             
           }
+
+          this.isLoading=false;
         });
   }
 

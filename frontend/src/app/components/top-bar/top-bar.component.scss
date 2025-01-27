@@ -20,6 +20,10 @@
     cursor: pointer;
 }
 
+.profile div{
+    margin-left: 20px;
+}
+
 .profile-img {
     width: 40px;
     height: 40px;
@@ -37,4 +41,32 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
+}
+
+
+.notification{
+    padding-top:10px;
+}
+
+:host ::ng-deep .p-badge { 
+  font-size: 12px;    
+  min-width: 20px;    
+  height: 20px;        
+  line-height: 20px;    
+ 
+}
+
+
+:host ::ng-deep .p-menu{
+    height:70vh;
+    width: 350px;
+}
+
+:host ::ng-deep .ng-tns-c1854380517-2{
+    font-size:22px;
+}
+
+
+:host ::ng-deep .p-menuitem-text{
+    font-size: 18px;
 }

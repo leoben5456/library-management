@@ -33,5 +33,22 @@ export const environment = {
     //Reserve Book Endpoint
     ReserveBookApi:'http://localhost:8080/reservation-service/reservation/creation/',
 
+  
+   //Get books by genre Endpoint
+    BooksByGenreApi:'http://localhost:8080/livre-service/livres/',
+
+
+    //Change reservation status Endpoint
+    ChangeReservationStatusApi:'http://localhost:8080/reservation-service/reservation/update/returned/',
+
     
+    //Get user reservations Endpoint
+    UserReservationsApi:'http://localhost:8080/reservation-service/reservation/user',
+
+
+     //Gemini API
+    geminiApiKey: 'AIzaSyCIDRaYO6tMK1iR6VcmCuYbTm3z9GiZTWk',
+    geminiApiUrl: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent'
 };
+
+

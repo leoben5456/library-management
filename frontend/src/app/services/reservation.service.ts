@@ -21,6 +21,21 @@ export class ReservationService {
 
     return this.http.get(url, {params});      
   }
+  
 
+  changeResrvationStatus(reservationId:Number):Observable<any>{
+    const body={"returned":true}
+    return this.http.patch<any>(environment.ChangeReservationStatusApi+reservationId,body);
+  }
+
+
+  getUserReservations(page: number, size: number):Observable<any>{
+    const url= environment.UserReservationsApi
+    const params= new HttpParams()
+          .set('page', page.toString())
+          .set('size', size.toString());
+
+    return this.http.get(url, {params});
+  }
 
 }

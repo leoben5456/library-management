@@ -2,18 +2,19 @@ package com.example.reservationservice.ServiceIMPL;
 
 import com.example.livreservice.Model.Livre;
 import com.example.livreservice.Model.Status;
-import com.example.livreservice.Service.LivreService;
+import com.example.reservationservice.DTO.BorrowStatisticsDTO;
 import com.example.reservationservice.Model.Reservation;
 import com.example.reservationservice.Repository.ReservationRepository;
 import com.example.reservationservice.Service.ReservationService;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.HttpHeaders;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 @Service
@@ -63,16 +64,22 @@ public class ReservationServiceImpl implements ReservationService {
     public void deleteReservation(int id) {
         reservationRepository.deleteById(id);
     }
+
+    @Override
+    public void updateReservationById(int id, Reservation reservation) {
+
+    }
+
     @Override
     @Transactional
-    public void updateReservationById(int id, Reservation reservation) {
-        Reservation existingReservation = reservationRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Reservation not found"));
-        existingReservation.setDateReservation(reservation.getDateReservation());
-        existingReservation.setDateExpiration(reservation.getDateExpiration());
-        existingReservation.setTitreLiver(reservation.getTitreLiver());
-        existingReservation.setEmailuser(reservation.getEmailuser());
+    public void updateReservationReturnedById(int id, boolean returned) {
+        Reservation existingReservation = reservationRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Reservation not found"));
+
+        existingReservation.setReturned(returned);
         reservationRepository.save(existingReservation);
     }
+
 
 
     @Override
@@ -118,5 +125,29 @@ public class ReservationServiceImpl implements ReservationService {
         return reservationRepository.getReservationsByEmail(email, pageable);
     }
 
+    @Override
+    public BorrowStatisticsDTO getBorrowStatistics() {
+        int totalBorrowed = reservationRepository.countTotalBorrowed();
+        List<Object[]> borrowedByDayOfWeekList = reservationRepository.countBorrowedByDayOfWeek();
 
+        Map<String, Integer> borrowedByDayOfWeek = new HashMap<>();
+        for (Object[] row : borrowedByDayOfWeekList) {
+            borrowedByDayOfWeek.put(row[0].toString().toLowerCase(), ((Number) row[1]).intValue());
+        }
+
+        BorrowStatisticsDTO statisticsDTO = new BorrowStatisticsDTO();
+        statisticsDTO.setTotalBorrowed(totalBorrowed);
+        statisticsDTO.setBorrowedByDayOfWeek(borrowedByDayOfWeek);
+        return statisticsDTO;
+    }
+
+    @Override
+    public int getNumberOfPenaltiesThisMonth() {
+        return reservationRepository.countPenaltiesThisMonth();
+    }
+
+    @Override
+    public int getOverdueBookCount() {
+        return reservationRepository.countOverdueBooks();
+    }
 }

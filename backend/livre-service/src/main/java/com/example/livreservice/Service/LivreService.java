@@ -25,4 +25,6 @@ public interface LivreService {
     void updateLivreStatus(int id, Status status);
     void incrementQuantite();
     void decrementQuantite();
+    List<Livre> getRandomBooks();
+
 }

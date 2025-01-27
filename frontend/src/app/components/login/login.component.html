@@ -1,4 +1,5 @@
 <div class="container">
+   
    <div class="Login-Form" [formGroup]="LoginForm">
       <!--- Email input  --->
       <div>
@@ -20,12 +21,14 @@
 
      </div>
 
+      
+   
       <!--- Login button  --->
       <div>
-         <p-button styleClass="btn" [disabled]="!LoginForm.valid" (click)="onLogin()"  label="Log In" />
+         <p-button styleClass="btn" [disabled]="!LoginForm.valid" (click)="onLogin()"   [label]="isLoading ? 'Logging in...' : 'Log In'" />
       </div>
 
-      <span class="forget-password">Forget Password?</span>
+      <span routerLink="/auth/signup" class="forget-password">You don't have account?Create one</span>
       
    </div>
    
