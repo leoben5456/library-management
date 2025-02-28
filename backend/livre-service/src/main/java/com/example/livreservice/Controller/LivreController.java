@@ -6,6 +6,7 @@ import com.example.livreservice.Model.Status;
 import com.example.livreservice.Repository.LivreRepository;
 import com.example.livreservice.Repository.WishlistRepositoy;
 import com.example.livreservice.Service.LivreService;
+import com.example.livreservice.Service.NotificationProducer;
 import com.example.livreservice.Service.WishlistService;
 import com.example.livreservice.ServiceImpl.JwtUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,6 +18,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -36,16 +38,19 @@ import java.util.*;
 public class LivreController {
     private final LivreService livreService;
     @Autowired
-    private LivreRepository livreRepository;
-
     private  final WishlistService wishlistService;
 
-    public LivreController(LivreService livreService, LivreRepository livreRepository, WishlistRepositoy wishlistRepositoy, WishlistService wishlistService) {
+    private final NotificationProducer notificationProducer;
+
+
+
+    public LivreController(LivreService livreService, WishlistService wishlistService, NotificationProducer notificationProducer) {
         this.livreService = livreService;
-
-
         this.wishlistService = wishlistService;
+
+        this.notificationProducer = notificationProducer;
     }
+
     @GetMapping("/welcome")
     public String welcome() {
         return "Welcome to Livre Service";
@@ -299,6 +304,17 @@ public class LivreController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.emptyList());
         }
     }
+
+
+
+    @PostMapping("/notify/user/{email}")
+    public  String notifyUser(@PathVariable String email){
+        notificationProducer.sendNotification(email);
+        return "Notification sent to:"+email;
+    }
+
+
+
 
 }
 

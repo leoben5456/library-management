@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BookService } from '../../services/book.service';
+import { NotificationService } from '../../services/notification.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-main-page',
@@ -14,17 +16,24 @@ export class MainPageComponent implements OnInit {
   BooksByGengre:any[] = [];
 
   RecommendedBooks:any[] = [];
+ 
+  
 
-
-constructor(private bookService:BookService) { }
+constructor(private bookService:BookService,private notificationService:NotificationService) { }
   
   ngOnInit(): void {
     
     this.loadBooksBygenre('All');
-    
+
+    this.notificationService.connect();
 
     
+  
+    
   }
+
+
+  
   
 
   value:number =4.5;

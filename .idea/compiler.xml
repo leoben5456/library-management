@@ -15,8 +15,10 @@
         <module name="user-service" />
         <module name="eureka-server" />
         <module name="api-gateway-server" />
+        <module name="kafka-admin-service" />
         <module name="admin-service" />
         <module name="livre-service" />
+        <module name="notification-service" />
       </profile>
     </annotationProcessing>
   </component>
@@ -27,7 +29,9 @@
       <module name="auth-service" options="-parameters" />
       <module name="config-server" options="-parameters" />
       <module name="eureka-server" options="-parameters" />
+      <module name="kafka-admin-service" options="-parameters" />
       <module name="livre-service" options="-parameters" />
+      <module name="notification-service" options="-parameters" />
       <module name="reservation-service" options="-parameters" />
       <module name="statistics-service" options="-parameters" />
       <module name="user-service" options="-parameters" />

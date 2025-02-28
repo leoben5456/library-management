@@ -7,17 +7,6 @@ spring:
       uri: http://localhost:8888
       fail-fast: true
 
-  kafka:
-    bootstrap-servers: localhost:9092
-    consumer:
-      group-id: statistics-service-group
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.LongDeserializer
-
-
-
-
-
 
 spring.config.import: optional:configserver:http://localhost:8888
 eureka:

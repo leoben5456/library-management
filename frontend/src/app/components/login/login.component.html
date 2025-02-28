@@ -1,13 +1,28 @@
 <div class="container">
    
    <div class="Login-Form" [formGroup]="LoginForm">
+
+      <!--Errors messages section-->
+
+      <div *ngIf="errorMessage" class="error-message-section">
+         {{errorMessage}}
+         
+      </div>
+
+
+
+   
+       
+
+
+
       <!--- Email input  --->
       <div>
          <p-floatLabel variant="on">
             <input pInputText id="on_label" formControlName="email"  autocomplete="off" />
             <label for="on_label">Email</label>
         </p-floatLabel>
-        <div class="error" *ngIf="LoginForm.get('email')?.errors?.['required']&& LoginForm.get('email')?.touched "><p>Email is required.</p></div>
+        <div class="error" *ngIf="LoginForm.get('email')?.errors?.['required']&& LoginForm.get('email')?.touched"><p>Email is required.</p></div>
 
 
       </div>

@@ -6,6 +6,7 @@ import com.example.reservationservice.DTO.BorrowStatisticsDTO;
 import com.example.reservationservice.Model.Reservation;
 import com.example.reservationservice.Service.ReservationService;
 import com.example.reservationservice.ServiceIMPL.JwtUtil;
+import com.example.reservationservice.ServiceIMPL.KafkaProducer;
 import io.jsonwebtoken.Claims;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -23,11 +24,12 @@ import java.util.Map;
 
 public class ReservationController {
     private final ReservationService reservationService;
+    private final KafkaProducer kafkaproducer;
 
-
-    public ReservationController(ReservationService reservationService) {
+    public ReservationController(ReservationService reservationService, KafkaProducer kafkaproducer) {
         this.reservationService = reservationService;
 
+        this.kafkaproducer = kafkaproducer;
     }
 
 
@@ -35,6 +37,7 @@ public class ReservationController {
     @GetMapping("/welcome")
     public  ResponseEntity<String> test(){
 
+        this.kafkaproducer.sendMessage("hello it's test");
 
         return ResponseEntity.ok("Hello from reservation service");
     }

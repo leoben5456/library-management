@@ -11,13 +11,17 @@ spring:
       globalcors:
         corsConfigurations:
           '[/**]':
-            allowedOrigins: "http://localhost:4200"
+            allowedOrigins:
+              - "http://localhost:4200"
+
+
             allowedMethods:
               - GET
               - POST
               - PUT
               - DELETE
               - PATCH
+              - OPTIONS
             allowedHeaders:
               - "*"
             allowCredentials: true
@@ -37,7 +41,6 @@ spring:
 
 
 
-
         - id: user-service
           uri: lb://user-service
           predicates:
@@ -47,6 +50,15 @@ spring:
           uri: lb://statistics-service
           predicates:
             - Path=/statistics-service/**
+
+
+        - id: notification-service
+          uri: ws://notification-service
+          predicates:
+            - Path=/notification-service/**
+
+
+
 
 
 

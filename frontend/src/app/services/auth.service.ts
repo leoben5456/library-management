@@ -56,7 +56,7 @@ export class AuthService {
           errorMessage = 'Bad Request: Please check the entered data.';
           break;
         case 401:
-          errorMessage = 'Unauthorized: Invalid credentials.';
+          errorMessage = 'Login failed: Please check your email and password and try again.';
           break;
         case 404:
           errorMessage = 'Not Found: The server endpoint is incorrect.';
@@ -65,7 +65,7 @@ export class AuthService {
           errorMessage = 'Internal Server Error: Please try again later.';
           break;
         default:
-          errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+          errorMessage = 'Something went wrong. Please try again later.';
       }
     }
 

@@ -18,6 +18,8 @@
         <option value="$PROJECT_DIR$/backend/reservation-service/pom.xml" />
         <option value="$PROJECT_DIR$/backend/statistics/pom.xml" />
         <option value="$PROJECT_DIR$/backend/statistics-service/pom.xml" />
+        <option value="$PROJECT_DIR$/backend/notification-service/pom.xml" />
+        <option value="$PROJECT_DIR$/backend/kafka-admin-service/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
