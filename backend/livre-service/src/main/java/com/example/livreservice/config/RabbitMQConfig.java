@@ -8,6 +8,10 @@ import org.springframework.amqp.core.Queue;
 
 @Configuration
 public class RabbitMQConfig {
+
+
+
+
     @Bean
     public Queue notificationQueue() {
         return new Queue("notificationQueue", true);
@@ -17,4 +21,6 @@ public class RabbitMQConfig {
     public Jackson2JsonMessageConverter jsonMessageConverter() {
         return new Jackson2JsonMessageConverter();
     }
+
+
 }

@@ -48,7 +48,18 @@ export const environment = {
 
      //Gemini API
     geminiApiKey: 'AIzaSyCIDRaYO6tMK1iR6VcmCuYbTm3z9GiZTWk',
-    geminiApiUrl: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent'
+    geminiApiUrl: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent',
+
+
+    //Websocket Endpoint for notifications
+    notificationApi: 'ws://localhost:8080/notification-service/ws',
+    
+
+    //load user unread notifications
+    loadUnreadNotificationsApi: 'http://localhost:8080/notification-service/api/v1/user/unread/notifications/',
+    
+    //mark notificaiton as read 
+    markAsread:'http://localhost:8080/notification-service/api/v1/user/mark/notifications/as/read'
 };
 
 

@@ -5,14 +5,15 @@
       <input type="text" pInputText placeholder="Search" />
     </p-iconField>
   </div>
+  
 
 
   <div class="profile">
 
     <div class="notification">
-      <p-menu #menu [model]="items" [popup]="true" />
+      <p-menu #menu [model]="items" [popup]="true" (onShow)="onMenuShow()" />
       <i
-      (click)="menu.toggle($event)"
+      (click)="toggleNotificationMenu($event,menu)"
       *ngIf="notificationsCount > 0"
       class="pi pi-bell mr-4 p-text-secondary"
       pBadge
@@ -22,6 +23,7 @@
     
     <!-- If there are no notifications, show a normal bell -->
     <i
+      (click)="toggleNotificationMenu($event,menu)"
       *ngIf="notificationsCount === 0"
       class="pi pi-bell mr-4 p-text-secondary"
       style="font-size: 28px"

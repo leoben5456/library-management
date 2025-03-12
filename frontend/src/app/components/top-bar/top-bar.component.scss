@@ -60,7 +60,38 @@
 :host ::ng-deep .p-menu{
     height:70vh;
     width: 350px;
+    overflow-x: hidden;
+    overflow-y:scroll;
+    z-index: 1000;
+    padding-top: 0 !important;
+    
+    // Webkit browsers (Chrome, Safari, newer Edge)
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+    
+    &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 50px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        background: #b0b0b0;
+        border-radius: 25px;
+    }
+    
+    &::-webkit-scrollbar-thumb:hover {
+        background: #878484;
+    }
+    
+    // Firefox
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1;
 }
+
+
+
+
 
 :host ::ng-deep .ng-tns-c1854380517-2{
     font-size:22px;
@@ -68,5 +99,29 @@
 
 
 :host ::ng-deep .p-menuitem-text{
+    font-size: 16px;
+    line-height: 1.2;
+    
+}
+
+
+
+::ng-deep .p-menuitem{
+    margin-left: 10px;
+   
+}
+
+::ng-deep .p-menuitem-icon{
+    font-size: 20px;
+}
+
+:host ::ng-deep .p-menu .p-submenu-header {
+    position: sticky;
+    top: 0;
+    z-index: 1001;
+    font-weight: bold;
     font-size: 18px;
+    color: #2c3e50;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
 }

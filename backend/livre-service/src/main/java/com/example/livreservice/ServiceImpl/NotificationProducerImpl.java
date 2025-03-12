@@ -21,7 +21,7 @@ public class NotificationProducerImpl implements NotificationProducer {
         // Create a JSON-like object
         Map<String, String> notification = new HashMap<>();
         notification.put("email", email);
-        notification.put("message", "message");
+        notification.put("message", "Your password account was change.");
 
         System.out.println("Sending message to RabbitMQ: " + notification);
         rabbitTemplate.convertAndSend("notificationQueue", notification);

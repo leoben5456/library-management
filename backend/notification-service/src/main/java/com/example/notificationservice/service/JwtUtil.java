@@ -56,11 +56,11 @@ public class JwtUtil {
     }
 
 
-    public  String extractUserEmail(String email){
+    public  String extractUserEmail(String token){
         try {
             Claims claims = Jwts.parser()
                     .setSigningKey(SECRET_KEY)
-                    .parseClaimsJws(email)
+                    .parseClaimsJws(token)
                     .getBody();
             return claims.getSubject();
         } catch (ExpiredJwtException e) {
